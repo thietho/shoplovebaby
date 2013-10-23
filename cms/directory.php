@@ -1,7 +1,7 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://localhost:81/tbsocms/cms/');
-define('HTTP_IMAGE', 'http://localhost:81/tbsocms/file/');
+define('HTTP_SERVER', 'http://localhost:81/shoplovebaby/cms/');
+define('HTTP_IMAGE', 'http://localhost:81/shoplovebaby/file/');
 
 // HTTPS
 define('HTTPS_SERVER', '');

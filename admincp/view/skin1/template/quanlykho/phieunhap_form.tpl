@@ -22,12 +22,13 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    <!--<p>
-                        <label>Người nhập</label><br />
-                        <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
-                        <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
-                        <input type="button" class="button" id="btnSelectNhanVienNhap" value="Chọn nhân viên nhập"/>
-                    </p>-->
+                    
+                    <p>
+                        <label>Khách hàng</label><br />
+                        <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
+                        <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
+                        <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
+                    </p>
                     <p>
                         <label>Nhà cung cấp</label><br />
                         <span id="nhacungcapview"></span>
@@ -220,7 +221,32 @@ $('#thanhtoan').keyup(function(e) {
 	$('#congno').val(congno);
 	$('#lbl-congno').html(formateNumber(congno));
 });
-
+$('#btnSelectKhachHang').click(function(e) {
+    $("#popup").attr('title','Chọn khách hàng');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 900,
+			height: 600,
+			modal: true,
+		});
+	
+		
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
+			$("#popup").dialog("open");
+		});
+});
+function intSelectMember()
+{
+	$('.item').click(function(e) {
+		
+        $('#nguoinhanid').val($(this).attr('id'));
+		$('#nguoinhan').val($(this).attr('fullname'));
+		
+		$("#popup").dialog( "close" );
+    });
+}
 $('#btnSeleteNhaCungCap').click(function(e) {
     $("#popup").attr('title','Chọn nhà cung cấp');
 		$( "#popup" ).dialog({
