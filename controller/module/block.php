@@ -45,18 +45,19 @@ class ControllerModuleBlock extends Controller
 					$imagethumbnail = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
 				}
 	
-				
+				$weblink = $this->model_core_media->getInformation($media['mediaid'], "Link");
 				$this->data['medias'][] = array(
 					'mediaid' => $media['mediaid'],
 					'title' => $media['title'],
 					'summary' => $media['summary'],
 					'imagethumbnail' => $imagethumbnail,
 					'statusdate' => $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/"),
+					'weblink' => $weblink,
 					'link' => $link
 				);
 				
 			}
-			
+			//print_r($this->data['medias']);
 			$querystring = "?route=page/detail&sitemapid=".$sitemapid;
 			
 			$pagelinks = $this->model_core_media->getPaginationLinks($index, $queryoptions, $querystring, $step, $to);
@@ -269,14 +270,18 @@ class ControllerModuleBlock extends Controller
 		$this->load->helper('image');
 		
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
-		$this->data['media']['imagethumbnail'] = HelperImage::fixsize($this->data['media']['imagepath'], $template['width'], $template['height']);
-		$this->data['media']['summary'] = html_entity_decode($this->data['media']['summary']);
-		$this->data['media']['description'] = html_entity_decode($this->data['media']['description']);
-		$this->data['media']['link'] = $this->document->createLink(str_replace($this->member->getSiteId(),"",$mediaid));
-		
-		$this->id="news";
-		$this->template=$template['template'];
-		$this->render();
+		if(count($this->data['media']))
+		{
+			$this->data['media']['imagethumbnail'] = HelperImage::fixsize($this->data['media']['imagepath'], $template['width'], $template['height']);
+			$this->data['media']['summary'] = html_entity_decode($this->data['media']['summary']);
+			$this->data['media']['description'] = html_entity_decode($this->data['media']['description']);
+			$this->data['media']['link'] = $this->document->createLink(str_replace($this->member->getSiteId(),"",$mediaid));
+			
+			$this->id="news";
+			$this->template=$template['template'];
+			$this->render();
+		}
+		else return "";
 	}
 }
 ?>

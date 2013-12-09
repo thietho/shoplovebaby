@@ -90,14 +90,14 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$where = " AND loaiphieu='".$this->loaiphieu."'";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
-		$datasearchlike['nguoinhan'] = urldecode($this->request->get['nguoinhan']);
+		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
 		$datasearchlike['nguoithuchien'] = urldecode($this->request->get['nguoithuchien']);
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
 			if($item !="")
-				$arr[] = " AND " . $key ." like '".$item."%'";
+				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		$where .= implode("",$arr);
@@ -216,9 +216,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$data['nguoithuchienid'] = $nhanvien['id'];
 			$data['nguoithuchien'] = $nhanvien['hoten'];
 			
-			$data['loaiphieu'] = $this->loaiphieu;
+			//$data['loaiphieu'] = $this->loaiphieu;
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
-			
+			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
 			//Xoa dinh luong
 			$delnhapkho = $data['delnhapkho'];
 			if($delnhapkho)
@@ -254,7 +254,18 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				$dl['giatien'] = $arr_giatien[$i];
 				$dl['giamgia'] = $arr_giamgia[$i];
 				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
-				$dl['loaiphieu'] = $this->loaiphieu;
+				$dl['loaiphieu'] = $phieu['loaiphieu'];
+				
+				$dl['maphieu'] = $phieu['maphieu'];
+				$dl['ngaylap'] = $phieu['ngaylap'];
+				$dl['nguoilap'] = $phieu['nguoilap'];
+				$dl['nhacungcapid'] = $phieu['nhacungcapid'];
+				$dl['tennhacungcap'] = $phieu['tennhacungcap'];
+				$dl['khachhangid'] = $phieu['khachhangid'];
+				$dl['tenkhachhang'] = $phieu['tenkhachhang'];
+				$dl['nguoigiao'] = $phieu['nguoigiao'];
+				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
+				$dl['nguoinhan'] = $phieu['nguoinhan'];
 				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				
@@ -284,9 +295,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		
 		
     	
-		if ($data['nguoinhan'] == "") 
+		if ($data['tenkhachhang'] == "") 
 		{
-      		$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";
+      		$this->error['tenkhachhang'] = "Bạn chưa nhập khách hàng";
     	}
 
 		if (count($this->error)==0) {

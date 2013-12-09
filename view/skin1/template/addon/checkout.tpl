@@ -43,7 +43,7 @@
         <h2>Thông tin khách hàng</h2>
     	<table class="ben-form">
         	
-            <input type="hidden" id="userid" name="userid" value="<?php echo $member['id']?>" size="40">
+            <input type="hidden" id="userid" name="userid" value="<?php echo $member['username']?>" size="40">
             <tr>
             	<td width="200px"><label>Họ và tên</label></td>
                 <td><input type="text" id="customername" name="customername" value="<?php echo $member['fullname']?>" class="ben-textbox" size="40" <?php echo $readonly?>></td>
@@ -96,7 +96,7 @@
             <tr>
             	<td ></td>
                 <td>
-                	<input type="button" id="btnCheckout" name="btnCheckout" class="ben-button" value="Thanh toán">
+                	<input type="button" id="btnCheckout" name="btnCheckout" class="ben-button" value="Đặt hàng">
                 </td>
             </tr>
         </table>

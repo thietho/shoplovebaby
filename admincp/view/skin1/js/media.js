@@ -231,6 +231,53 @@ function showFolderMoveForm()
 			$(eid).dialog("open");	
 		});
 }
+function setForward(sitemapid)
+{
+	$('body').append('<div id="formforward" style="display:none"></div>');
+	var eid = "#formforward";
+	$(eid).attr('title','Chuyễn tiếp');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 600,
+			height: 300,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					$.post("?route=core/sitemap/saveCol",
+					{
+						sitemapid:sitemapid,
+						col:'forward',
+						val:$('#forward').val()
+					},
+					function(data){
+						$(eid).dialog( "close" );
+					});
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$(eid).load("?route=core/sitemap/forwardForm&sitemapid="+sitemapid+"&dialog=true",function(){
+			$(eid).dialog("open");	
+		});
+}
 function delFolder(folderid)
 {
 	$.get("?route=core/file/delFolder&folderid="+folderid,function(data){
@@ -421,7 +468,7 @@ function browseProduct()
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
+			width: $(document).width()-100,
 			height: 500,
 			modal: true,
 			close:function()
@@ -436,5 +483,144 @@ function browseProduct()
 			$("#popupbrowseproduct").dialog("open");
 			
 
+		});
+}
+function showMemberForm(memberid,strFun)
+{
+	$('body').append('<div id="frm_member" style="display:none"></div>');
+	var eid = "#frm_member";
+	$(eid).attr('title','Thông tin khách hàng');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			//width: $(document).width()-100,
+			width: 600,
+			height: 600,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					
+					$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+					$.post("?route=core/member/save", $("#frm").serialize(),
+						function(data){
+							var arr = data.split("-");
+							if(arr[0] == "true")
+							{
+								//window.location = "?route=core/member";\
+								alert("Lưu thành công!");
+								if(strFun!="")
+									var ret = eval(strFun);
+								$(eid).dialog( "close" );
+							}
+							else
+							{
+							
+								$('#error').html(data).show('slow');
+								$.unblockUI();
+								
+							}
+							$.unblockUI();
+						}
+					);	
+						
+						
+                    
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+		var url = "?route=core/member/insert&dialog=true";
+		if(memberid)
+		{
+			url = "?route=core/member/update&id="+memberid+"&dialog=true";
+		}
+		$(eid).load(url,function(){
+			$(eid).dialog("open");	
+		});
+}
+function showNhaCungCapForm(nhacungcapid,strFun)
+{
+	$('body').append('<div id="frm_member" style="display:none"></div>');
+	var eid = "#frm_member";
+	$(eid).attr('title','Thông tin khách hàng');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			//width: $(document).width()-100,
+			width: 600,
+			height: 600,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					
+					
+					$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+					$.post("?route=quanlykho/nhacungcap/save", $("#frm").serialize(),
+						function(data){
+							var arr = data.split("-");
+							if(arr[0] == "true")
+							{
+								//window.location = "?route=core/member";\
+								alert("Lưu thành công!");
+								if(strFun!="")
+									var ret = eval(strFun);
+								$(eid).dialog( "close" );
+							}
+							else
+							{
+							
+								$('#error').html(data).show('slow');
+								$.unblockUI();
+								
+							}
+							$.unblockUI();
+						}
+					);	
+						
+						
+                    
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+		var url = "?route=quanlykho/nhacungcap/insert&dialog=true";
+		if(nhacungcapid)
+		{
+			url = "?route=quanlykho/nhacungcap/update&id="+nhacungcapid+"&dialog=true";
+		}
+		$(eid).load(url,function(){
+			$(eid).dialog("open");	
 		});
 }

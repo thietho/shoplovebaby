@@ -16,11 +16,14 @@
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                 <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>
-                <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
+                <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
+                <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                 
                 <?php } ?>
+                <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>&nbsp;
+                <a class="button" href="?route=module/information&sitemapid=<?php echo $sitemapid?>&goback=module/product">Biên tập nội dung</a>&nbsp;
                 <?php } ?>
                 <?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
                 <a class="button" onclick="pro.deleteProduct()">Xóa</a>&nbsp;
@@ -163,6 +166,11 @@ function Product()
 	}
 	this.selectGroup = function(mediaid)
 	{
+		if($('#selectmediaid').val() == mediaid)
+		{
+			alert('Bạn không thể đưa vào nhóm sản phẩm bạn dang chọn!!!')
+			return;
+		}
 		$.post("?route=core/media/updateCol",
 			{
 				mediaid:$('#selectmediaid').val(),
@@ -218,6 +226,117 @@ function Product()
 		$.post("?route=core/postlist/updatePosition", $("#postlist").serialize(), function(data){
 			pro.loadProduct(pro.url);
 			$.unblockUI();
+		});	
+	}
+	
+	this.history = function(mediaid)
+	{
+		$('body').append('<div id="history_form" style="display:none"></div>');
+		var eid = "#history_form";
+		
+		
+		$(eid).attr('title','Lịch sử xuất nhập');
+			$( eid ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 800,
+				height: 600,
+				modal: true,
+				close:function()
+					{
+						$(eid).remove();
+					},
+				
+			});
+		
+			
+			$(eid).load("?route=module/product/history&mediaid="+mediaid+"&dialog=true",function(){
+				$(eid).dialog("open");	
+			});
+		
+		
+	}
+	this.importData = function()
+	{
+		$('body').append('<div id="history_form" style="display:none"></div>');
+		var eid = "#history_form";
+		
+		
+		$(eid).attr('title','Import dữ liệu');
+			$( eid ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: 600,
+				modal: true,
+				close:function()
+					{
+						$(eid).remove();
+					},
+				buttons: {
+				
+					'Import':function()
+					{
+						//$('#history_form').scrollTop(500);
+						$('.item').removeClass('itemselected');
+						$('#history_form').scrollTop(0)
+						//alert(i)
+						var k = 2;
+						pro.postProduct(k);
+						
+					},
+					'Đóng': function() 
+					{
+						
+						$(eid).dialog( "close" );
+						window.location.reload();
+					},
+				}
+				
+			});
+		
+			
+			$(eid).load("?route=module/product/import&dialog=true",function(){
+				$(eid).dialog("open");	
+			});
+	}
+	this.postProduct = function(k)
+	{
+		$.post("?route=core/media/importProduct",
+			{
+				mediaid:$('#item'+k+' #A').html(),
+				mediaparent:$('#item'+k+' #B').html(),
+				code:$('#item'+k+' #C').html(),
+				title:$('#item'+k+' #D').html(),
+				color:$('#item'+k+' #E').html(),
+				unit:$('#item'+k+' #F').html(),
+				brand:$('#item'+k+' #G').html(),
+				refersitemap:$('#item'+k+' #H').html(),
+				price:$('#item'+k+' #I').html(),
+				saleprice:$('#item'+k+' #J').html(),
+				discountpercent:$('#item'+k+' #K').html(),
+				pricepromotion:$('#item'+k+' #L').html(),
+				summary:$('#item'+k+' #M').html(),
+				
+			},
+			function(data)
+			{
+				
+				$('#item'+k).addClass('itemselected');
+				
+				$('#history_form').scrollTop($('#history_form').scrollTop()+$('#item'+k).height());
+				if(k<=i)
+					pro.postProduct(k+1);
+				else
+					alert("Import dữ liệu thành công!");
+			});
+	}
+	this.exportData = function()
+	{
+		$.get("?route=module/product/export",function(data){
+			window.location = "download.php?url="+ encodeURI(data);
 		});	
 	}
 }

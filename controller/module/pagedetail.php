@@ -14,7 +14,7 @@ class ControllerModulePagedetail extends Controller
 		$siteid = $this->member->getSiteId();
 		
 		$this->data['post'] = $this->model_core_media->getByAlias($mediaid);
-		$this->document->title .= " - ".$this->data['post']['title'];
+		$this->document->title = "Hà Linh Sport - ".$this->data['post']['title'];
 		
 		if(count($this->data['post']) == 0)
 		{
@@ -120,9 +120,13 @@ class ControllerModulePagedetail extends Controller
 		$this->data['post'] = $this->model_core_media->getByAlias($mediaid);
 		$arr = $this->string->referSiteMapToArray($this->data['post']['refersitemap']);
 		$sid = $arr[0];
-		$this->data['post']['link'] = $this->document->createLinkShare($sid,$this->data['post']['alias']);
+		$this->data['post']['link'] = $this->document->createLink($sid,$this->data['post']['alias']);
+		
 		$mediaid = $this->data['post']['mediaid'];
 		$this->document->title .= " - ".$this->data['post']['title'];
+		if($this->data['post']['code'])
+			$this->document->title .= " - ".$this->data['post']['code'];
+		$this->document->title = "Hà Linh Sport - ".$this->data['post']['title'];
 		if(count($this->data['post']) == 0)
 		{
 			$this->data['post']['description'] = "Updating...";
@@ -176,23 +180,19 @@ class ControllerModulePagedetail extends Controller
 			}
 			
 		}
-		//Get sub infomation
 		
-		$this->data['child'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'subinfor' Order by position");
-		foreach($this->data['child'] as $key => $item)
-		{
-			$this->data['child'][$key]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], $template['width'], $template['height'])."' >";
-		}
 		
-		$this->data['priceproduct'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
 		
-		foreach($this->data['priceproduct'] as $key => $item)
+		
+		$this->data['priceproduct'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'module/product' " ," Order by position");
+		
+		/*foreach($this->data['priceproduct'] as $key => $item)
 		{
 			
 			
 			$khuyenmai = $this->model_core_media->getItem($this->data['priceproduct'][$key]['makhuyenmai']);
 			$this->data['priceproduct'][$key]['tenkhuyenmai'] = $khuyenmai['title'];
-		}
+		}*/
 		
 		$queryoptions = array();
 		$queryoptions['mediaparent'] = '%';
@@ -225,6 +225,17 @@ class ControllerModulePagedetail extends Controller
 		$where = " AND mediaid = '".$mediaid."'";
 		$arr = array($where,$temp);
 		$this->data['comment'] = $this->loadModule('module/comment','getList',$arr);
+		//Cac sp cung code
+		
+		if($this->data['post']['code'] != "")
+		{
+			$where = " AND code = '".$this->data['post']['code']."' AND mediaparent = ''";
+			$this->data['data_samplecode'] = $this->model_core_media->getList($where);
+			foreach($this->data['data_samplecode'] as $i => $item)
+			{
+				$this->data['data_samplecode'][$i]['icon'] = HelperImage::resizePNG($item['imagepath'], 50, 50);
+			}
+		}
 		
 		$this->id="news";
 		$this->template=$template['template'];

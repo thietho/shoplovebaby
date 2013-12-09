@@ -6,7 +6,7 @@
     	
     	<table class="ben-form">
         	<tr>
-            	<td><label>Tên đăng nhập</label></td>
+            	<td width="20%"><label>Tên đăng nhập</label></td>
                 <td><input type="text" id="username" name="username" class="ben-textbox" size="40"></td>
             </tr>
             <tr>
@@ -46,19 +46,7 @@
 				 </script>
                 <td><input type="text" id="birthday" name="birthday" class="ben-textbox" size="40"></td>
             </tr>
-            <tr>
-            	<td><label>Ngày sinh của bé</label></td>
-                <script language="javascript">
-					$(function() {
-						$("#birthdaykids").datepicker({
-								changeMonth: true,
-								changeYear: true,
-								dateFormat: 'dd-mm-yy'
-								});
-						});
-				 </script>
-                <td><input type="text" id="birthdaykids" name="birthdaykids" class="ben-textbox" size="40"></td>
-            </tr>
+            
             <tr>
             	<td></td>
                 <td>
