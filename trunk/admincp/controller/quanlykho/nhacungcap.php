@@ -148,7 +148,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		
 		$this->data['nhacungcap'] = $this->model_quanlykho_nhacungcap->getItem($id);
 		//Lay tat ca phieu chi thanhtoanncc
-		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'thanhtoanncc'";
+		$where = " AND makhachhang = 'NCC-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'thanhtoanncc'";
 		$this->data['data_phieuchi'] = $this->model_addon_thuchi->getList($where);
 		$tongchi = 0;
 		foreach($this->data['data_phieuchi'] as $item)
@@ -164,15 +164,24 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		{
 			$tongno += $item['congno'];	
 		}
-		$congno = $tongno - $tongchi;
+		
+		//Lay tat ca phieu xuat hang
+		$where = " AND loaiphieu = 'PBH' AND nhacungcapid = '".$id."'";
+		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$tongban = 0;
+		foreach($this->data['data_phieubanhang'] as $item)
+		{
+			$tongban += $item['congno'];	
+		}
+		$congno = $tongno - $tongchi - $tongban;
 		
 		if($this->request->get['nhacungcapid'])
 		{
 			
 			$this->data['tongno'] = $tongno;
-			$this->data['tongtrano'] = $tongtrano;
-			$this->data['tongphieuthu'] = $tongthu;
-			$this->data['tongvay'] = $tongvay;
+			$this->data['tongchi'] = $tongchi;
+			$this->data['tongban'] = $tongban;
+			
 			
 			$this->data['congno'] = $congno;
 			$this->id='content';
@@ -207,7 +216,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		
 		$this->id='content';
 		$this->template='quanlykho/nhacungcap_form.tpl';
-		$this->layout="layout/center";
+		
 		
 		$this->render();
 	}

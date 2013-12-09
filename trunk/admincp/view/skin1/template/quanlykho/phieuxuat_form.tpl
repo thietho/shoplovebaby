@@ -12,6 +12,7 @@
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieuxuat')"/>   
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
                 <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">
+                <input type="hidden" name="loaiphieu" value="PBH">
                 
             </div>
             <div class="clearer">^&nbsp;</div>
@@ -32,13 +33,13 @@
                     
                     <p>
                         <label>Khách hàng</label><br />
-                        <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
-                        <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
+                        <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
+                        <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
                     <p>
                         <label>Nhà cung cấp</label><br />
-                        <span id="nhacungcapview"></span>
+                        <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
                         <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
                         <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
                         <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
@@ -71,6 +72,20 @@
                         <tbody id="nhapkhonguyenlieu">
                         </tbody>
                         <tfoot>
+                        	<tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                	
+                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                                </td>
+                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td></td>
                                 <td class="number">Tổng số lượng</td>
@@ -85,6 +100,7 @@
                                 <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                                 <td></td>
                             </tr>
+                            
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -152,6 +168,9 @@ $('#btnTrahet').click(function(e) {
     $('#thanhtoan').val($('#tongcong').html());
 	$('#thanhtoan').keyup();
 });
+$('#thuphi').keyup(function(e) {
+    objdl.tinhtong(0);
+});
 $('#thanhtoan').keyup(function(e) {
     var tongcong = Number(stringtoNumber($('#tongcong').html()));
 	var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
@@ -180,8 +199,8 @@ function intSelectMember()
 {
 	$('.item').click(function(e) {
 		
-        $('#nguoinhanid').val($(this).attr('id'));
-		$('#nguoinhan').val($(this).attr('fullname'));
+        $('#khachhangid').val($(this).attr('id'));
+		$('#tenkhachhang').val($(this).attr('fullname'));
 		
 		$("#popup").dialog( "close" );
     });
@@ -212,6 +231,7 @@ function intSelectNhaCungCap()
         $('#nhacungcapid').val($(this).attr('id'));
 		$('#tennhacungcap').val($(this).attr('tennhacungcap'));
 		$('#nhacungcapview').html($(this).attr('tennhacungcap'));
+		$('#nguoinhan').val($(this).attr('tennhacungcap'));
 		$("#popup").dialog( "close" );
     });
 }

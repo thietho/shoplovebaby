@@ -22,16 +22,24 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    
                     <p>
+                    	<label>Loại phiếu</label><br />
+                        <select id="loaiphieu" name="loaiphieu">
+                        <?php foreach($loaiphieu as $key =>  $val){ ?>
+                        	<option value="<?php echo $key?>"><?php echo $val?></option>
+                        <?php } ?>
+                        </select>
+                        
+                    </p>
+                    <p id="f-NK-KHTL" class="nhapxuat">
                         <label>Khách hàng</label><br />
-                        <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
-                        <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
+                        <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
+                        <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
-                    <p>
+                    <p id="f-NK" class="nhapxuat">
                         <label>Nhà cung cấp</label><br />
-                        <span id="nhacungcapview"></span>
+                        <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
                         <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
                         <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
                         <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
@@ -60,7 +68,7 @@
                 	<table>
                     	<thead>
                             <tr>
-                                <th>Code</th>
+                                <th>Model</th>
                                 <th>Sản phẩm</th>
                                 <th>Số lượng</th>
                                 <th>Đơn vị tính</th>
@@ -75,6 +83,20 @@
                         <tbody id="nhapkhonguyenlieu">
                         </tbody>
                         <tfoot>
+                        	<tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                	
+                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                                </td>
+                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td></td>
                                 <td class="number">Tổng số lượng</td>
@@ -129,6 +151,8 @@
                     </table>
                     <input type="hidden" id="delnhapkho" name="delnhapkho" />
                     <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+                    <input type="button" class="button" id="btnImport" value="Lấy dữ liệu từ file excel"/>
+                    <input type="button" class="button" id="btnGetFomat" value="Lấy file excel mẫu"/>
                 </div>
            </div>
             
@@ -148,25 +172,21 @@ $(document).ready(function(e) {
 <?php } ?>
 
 <script language="javascript">
-$(document).ready(function(e) {
-    $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
-});
-$('#btnSelectNhanVienNhap').click(function(e) {
-	handle = "nguoithuchien";
-    $("#popup").attr('title','Chọn nhân viên');
+
+$('#btnSelectKhachHang').click(function(e) {
+    $("#popup").attr('title','Chọn khách hàng');
 		$( "#popup" ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
+			width: 900,
 			height: 600,
 			modal: true,
-			
 		});
 	
 		
-		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
-			$("#popup").dialog("open");	
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
+			$("#popup").dialog("open");
 		});
 });
 $('#btnSelectNhanVienNhan').click(function(e) {
@@ -187,6 +207,16 @@ $('#btnSelectNhanVienNhan').click(function(e) {
 			$("#popup").dialog("open");	
 		});
 });
+function intSelectMember()
+{
+	$('.item').click(function(e) {
+		
+        $('#khachhangid').val($(this).attr('id'));
+		$('#tenkhachhang').val($(this).attr('fullname'));
+		
+		$("#popup").dialog( "close" );
+    });
+}
 function intSelectNhanVien()
 {
 	switch(handle)
@@ -214,6 +244,9 @@ $('#btnTrahet').click(function(e) {
     $('#thanhtoan').val($('#tongcong').html());
 	$('#thanhtoan').keyup();
 });
+$('#thuphi').keyup(function(e) {
+    objdl.tinhtong(0);
+});
 $('#thanhtoan').keyup(function(e) {
     var tongcong = Number(stringtoNumber($('#tongcong').html()));
 	var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
@@ -221,32 +254,8 @@ $('#thanhtoan').keyup(function(e) {
 	$('#congno').val(congno);
 	$('#lbl-congno').html(formateNumber(congno));
 });
-$('#btnSelectKhachHang').click(function(e) {
-    $("#popup").attr('title','Chọn khách hàng');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: 900,
-			height: 600,
-			modal: true,
-		});
-	
-		
-		$("#popup-content").load("?route=core/member&opendialog=true",function(){
-			$("#popup").dialog("open");
-		});
-});
-function intSelectMember()
-{
-	$('.item').click(function(e) {
-		
-        $('#nguoinhanid').val($(this).attr('id'));
-		$('#nguoinhan').val($(this).attr('fullname'));
-		
-		$("#popup").dialog( "close" );
-    });
-}
+
+
 $('#btnSeleteNhaCungCap').click(function(e) {
     $("#popup").attr('title','Chọn nhà cung cấp');
 		$( "#popup" ).dialog({
@@ -275,7 +284,14 @@ function intSelectNhaCungCap()
 $('#btnAddRow').click(function(e) {
 	browseProduct();
 });
-
+$('#btnImport').click(function(e) {
+    objdl.importDetail();
+});
+$('#btnGetFomat').click(function(e) {
+    $.get("?route=quanlykho/phieunhap/getFileFormate",function(data){
+		window.location = "download.php?url="+ encodeURI(data);
+	});	
+});
 
 function save(type)
 {
@@ -338,12 +354,28 @@ function save(type)
 		}
 	);
 }
+$('#loaiphieu').val("<?php echo $item['loaiphieu']?>")
+$('#loaiphieu').change(function(e) {
+	$('.nhapxuat').hide();
+    $('#f-'+$('#loaiphieu').val()).show();
+	switch(this.value)
+	{
+		case "NK":
+			$('#khachhangid').val('');
+			$('#tenkhachhang').val('');
+			break;
+		case "NK-KHTL":
+			$('#nhacungcapid').val('');
+			$('#tennhacungcap').val('');
+			$('#nhacungcapview').html('');
+	}
+});
 
-$("#manhom").val("<?php echo $item['manhom']?>");
-$("#loai").val("<?php echo $item['loai']?>");
-
-$("#madonvi").val("<?php echo $item['madonvi']?>");
 
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
+$(document).ready(function(e) {
+    $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
+	$('#loaiphieu').change();
+});
 </script>
 

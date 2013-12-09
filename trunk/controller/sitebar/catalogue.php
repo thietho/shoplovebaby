@@ -1,7 +1,7 @@
 <?php
 class ControllerSitebarCatalogue extends Controller
 {
-	public function index($sitemapid = "",$status = "Active" )
+	public function index($sitemapid = "",$status = "" )
 	{
 		$siteid = $this->member->getSiteId();
 		$this->data['sitemap'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
@@ -47,7 +47,7 @@ class ControllerSitebarCatalogue extends Controller
 			
 			if(count($childs) > 0)
 			{
-				$str .= "<span class='collape right'>[+]</span>";
+				$str .= "<span class='collape down ben-right'></span>";
 				$str .= '<div class="clearer">&nbsp;</div>';
 				$str .= "</div>";
 				

@@ -2,7 +2,7 @@
 class ControllerQuanlykhoPhieunhap extends Controller
 {
 	private $error = array();
-	private $loaiphieu = "NK";
+	
 	function __construct() 
 	{
 		
@@ -13,7 +13,11 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			$this->response->redirect('?route=page/home');
 		}
-		
+		$this->data['loaiphieu'] = array(
+								"NK" => "Nhập từ nhà cung cấp",
+								"NK-KHTL" => "Khách hàng trả hàng",
+								"NK-HL" => "Hàng lỗi"
+								);
 		
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
@@ -85,19 +89,21 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	public function getList() 
 	{
 		
-		
+		$arr = array();
+		foreach($this->data['loaiphieu'] as $key => $val)
+			$arr[] = $key;
 		$this->data['datas'] = array();
-		$where = " AND loaiphieu='".$this->loaiphieu."'";
+		$where = " AND loaiphieu in ('". implode("','", $arr) ."')";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['tennhacungcap'] = urldecode($this->request->get['tennhacungcap']);
-		$datasearchlike['nguoithuchien'] = urldecode($this->request->get['nguoithuchien']);
+		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
 			if($item !="")
-				$arr[] = " AND " . $key ." like '".$item."%'";
+				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		$where .= implode("",$arr);
@@ -212,10 +218,11 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		if($this->validateForm($data))
 		{
 			
-			$data['loaiphieu'] = $this->loaiphieu;
+			//$data['loaiphieu'] = $this->loaiphieu;
 			
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			
+			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
 			//Xoa dinh luong
 			$delnhapkho = $data['delnhapkho'];
 			if($delnhapkho)
@@ -251,7 +258,19 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				$dl['giatien'] = $arr_giatien[$i];
 				$dl['giamgia'] = $arr_giamgia[$i];
 				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
-				$dl['loaiphieu'] = $this->loaiphieu;
+				$dl['loaiphieu'] = $phieu['loaiphieu'];
+				
+				$dl['maphieu'] = $phieu['maphieu'];
+				$dl['ngaylap'] = $phieu['ngaylap'];
+				$dl['nguoilap'] = $phieu['nguoilap'];
+				$dl['nhacungcapid'] = $phieu['nhacungcapid'];
+				$dl['tennhacungcap'] = $phieu['tennhacungcap'];
+				$dl['khachhangid'] = $phieu['khachhangid'];
+				$dl['tenkhachhang'] = $phieu['tenkhachhang'];
+				$dl['nguoigiao'] = $phieu['nguoigiao'];
+				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
+				$dl['nguoinhan'] = $phieu['nguoinhan'];
+				
 				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				
@@ -306,7 +325,47 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	
 	
 	//Cac ham xu ly tren form
-	
+	public function getFileFormate()
+	{
+		require_once DIR_COMPONENT.'PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Ho Lan Solutions")
+							 ->setLastModifiedBy("Lư Thiết Hồ")
+							 ->setTitle("Export data")
+							 ->setSubject("Export data")
+							 ->setDescription("")
+							 ->setKeywords("Ho Lan Solutions")
+							 ->setCategory("Product");
+		$objPHPExcel->setActiveSheetIndex(0)
+            
+			->setCellValue('A1', 'Mã sản phẩm')
+            ->setCellValue('B1', 'Tên sản phẩm')
+			->setCellValue('C1', 'Màu sắc')
+            ->setCellValue('D1', 'ĐVT')
+			->setCellValue('E1', 'Số Lượng')
+            ->setCellValue('F1', 'Giá')
+			->setCellValue('G1', '% giảm giá')
+			
+			
+			;
+		$objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);*/
+		
+		$objPHPExcel->getActiveSheet()->setTitle('Product');
+		$objPHPExcel->setActiveSheetIndex(0);
+		//
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$filename = "nhapxuat.xls";
+		$objWriter->save(DIR_CACHE.$filename);
+		$this->data['output'] = HTTP_IMAGE."cache/".$filename;
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	
 }
 ?>

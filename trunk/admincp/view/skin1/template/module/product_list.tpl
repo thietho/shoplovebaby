@@ -3,8 +3,8 @@
             
             	<thead>
                 	<th width="10%"><?php echo $column_position?></th>
-                    
-                    <th>Code</th>
+                    <th>ID</th>
+                    <th>Model</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá bán</th>
                     <th>Giá</th>
@@ -27,7 +27,7 @@
                         	<input type="checkbox" value="<?php echo $media['mediaid']?>" name="delete[<?php echo $media['mediaid']?>]" class="inputchk">
                             <input type="text" class="text number" name="position[<?php echo $media['mediaid']?>]" value="<?php echo $key+1?>" size="3"/>
                         </td>
-                        
+                        <td><b><?php echo $media['mediaid']?></b></td>
                         <td><b><?php echo $media['code']?></b></td>
                     	<td>
                         	<b><?php echo $media['title']?></b><br />
@@ -70,8 +70,11 @@
                             <input type="button" class="button enterGroup" value="Đưa vào nhóm" onclick="pro.enterGroup('<?php echo $media['mediaid']?>')"/>
                             <input type="button" class="button selectGroup" value="Chọn" onclick="pro.selectGroup('<?php echo $media['mediaid']?>')"/>
                             <?php }?>
+                            <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $media['mediaid']?>')"/>
                             <?php if(count($media['child'])==0){ ?>
+                            
                             <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>
+                            
                             <?php } ?>
                         </td>
                     </tr>
@@ -83,7 +86,7 @@
                                         <input type="checkbox" value="<?php echo $child['mediaid']?>" name="delete[<?php echo $child['mediaid']?>]" class="inputchk">
                                         <input type="text" class="text number" name="position[<?php echo $child['mediaid']?>]" value="<?php echo $k +1?>" size="3"/>
                                     </td>
-                                    
+                                    <td><b><?php echo $child['mediaid']?></b></td>
                                     <td><b><?php echo $child['code']?></b>&nbsp;</td>
                                 	<td><b><?php echo $child['title']?></b></td>
                                     <td class="number">
@@ -112,7 +115,7 @@
                                     
                                     <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
                                     <td><?php echo $this->document->getCategory($child['brand'])?></td>
-                                    <td></td>
+                                    <td><?php echo $this->document->status_media[$child['status']]?></td>
                                     <td align="center"><?php echo $child['imagepreview']?>&nbsp;</td>
                                     
                                     <td>
@@ -121,6 +124,7 @@
                                         <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $child['link_edit']?>'"/>
                                         <?php } ?>
                                        	<input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
+                                        <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $child['mediaid']?>')"/>
                                         <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $child['mediaid']?>')"/>
                                     </td>
                                 </tr> 

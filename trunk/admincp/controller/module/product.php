@@ -11,6 +11,7 @@ class ControllerModuleProduct extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		$this->load->model("quanlykho/donvitinh");
+		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
 		$this->load->model("core/media");
@@ -21,6 +22,7 @@ class ControllerModuleProduct extends Controller
 	
 	function index()
 	{	
+		
 		
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = $this->request->get['sitemapid'];
@@ -33,7 +35,7 @@ class ControllerModuleProduct extends Controller
 	
 	public function getList()
 	{
-		$sitemapid = $this->request->get['sitemapid'];
+		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$this->data['sitemapid'] = $sitemapid;
 		$siteid = $this->user->getSiteId();
 		if($sitemapid == "")
@@ -181,7 +183,7 @@ class ControllerModuleProduct extends Controller
 		$siteid = $this->user->getSiteId();
 		$str = "";
 		
-		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
+		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid);
 		
 		foreach($sitemaps as $item)
 		{
@@ -301,6 +303,200 @@ class ControllerModuleProduct extends Controller
 		$this->data['medias'] = $_SESSION['productlist'];
 		$this->id='content';
 		$this->template='module/product_selected.tpl';
+		$this->render();
+	}
+	public function history()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		$this->data['media'] = $this->model_core_media->getItem($mediaid);
+		//Nhap kho
+		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'NK'";
+		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
+		//Xuat kho
+		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'PBH'";
+		$data_xuatkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
+		$arrdate = array();
+		foreach($data_nhapkho as $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $this->date->getDate($item['ngaylap']);
+			}
+		}
+		foreach($data_xuatkho as $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $this->date->getDate($item['ngaylap']);
+			}
+		}
+		sort(&$arrdate);
+		foreach($arrdate as $date)
+		{
+			foreach($data_nhapkho as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$this->data['nhapxuat'][$date]['nhapkho'][] = $item;
+				}
+			}
+			foreach($data_xuatkho as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$this->data['nhapxuat'][$date]['xuatkho'][] = $item;
+				}
+			}
+		}
+		//print_r($this->data['nhapxuat']);
+		$this->id='content';
+		$this->template='module/product_history.tpl';
+		$this->render();
+	}
+	
+	public function import()
+	{
+		$this->id='content';
+		$this->template='module/product_import.tpl';
+		$this->render();
+	}
+	
+	public function importData()
+	{
+		
+		$arr = split("\.",$_FILES['fileimport']['name']);
+		$ext = $arr[1];
+		include DIR_COMPONENT.'PHPExcel/Classes/PHPExcel/IOFactory.php';
+		//$inputFileName = 'GuiHangChoHo_20131002.xls';
+		
+		$inputFileName = $_FILES['fileimport']['tmp_name'];
+		if($ext =='xls')
+			$objReader = new PHPExcel_Reader_Excel5();
+		else
+			$objReader = new PHPExcel_Reader_Excel2007();
+		//$objReader->setLoadSheetsOnly("Sheet1");
+		$objPHPExcel = $objReader->load($inputFileName);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		//var_dump($sheetData);
+		//echo $sheetData[1]['A'];
+		
+		
+		$this->data['output'] = json_encode(array('datas' => $sheetData));
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	public function export()
+	{
+		require_once DIR_COMPONENT.'PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Ho Lan Solutions")
+							 ->setLastModifiedBy("Lư Thiết Hồ")
+							 ->setTitle("Export data")
+							 ->setSubject("Export data")
+							 ->setDescription("")
+							 ->setKeywords("Ho Lan Solutions")
+							 ->setCategory("Product");
+		$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'ID')
+			->setCellValue('B1', 'IDParent')
+			->setCellValue('C1', 'Mã sản phẩm')
+            ->setCellValue('D1', 'Tên sản phẩm')
+			->setCellValue('E1', 'Màu sắc')
+            ->setCellValue('F1', 'ĐVT')
+			->setCellValue('G1', 'Nhãn hiệu')
+            ->setCellValue('H1', 'Danh mục')
+			->setCellValue('I1', 'Giá bán')
+			->setCellValue('J1', 'Giá bán tại cửa hàng')
+			->setCellValue('K1', 'Giảm giá%')
+			->setCellValue('L1', 'Giá khuyến mãi')
+			
+			;
+		$objPHPExcel->getActiveSheet()->getStyle('A1:L1')->getFont()->setBold(true);
+		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);*/
+		//Dua du lieu vao
+		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
+		$where .= " Order by title";
+		$medias = $this->model_core_media->getList($where);
+		$data = array();
+		foreach($medias as $i => $media)
+		{
+			$data[] = $media;
+			$where = " AND mediaparent = '".$media['mediaid']."' AND mediatype = 'module/product' ";
+			$where .= " Order by position, statusdate DESC";
+			$childs = $this->model_core_media->getList($where);
+			
+			if(count($childs))
+			{
+				foreach($childs as $child)	
+				{
+					$data[] = $child;
+				}
+			}
+		}
+		//print_r($data);
+		$key = 2;
+		foreach($data as $media)
+		{
+			$brand = $this->document->getCategory($media['brand']);
+			$unit = $this->document->getDonViTinh($media['unit']);
+			$arrsitemapid = $this->string->referSiteMapToArray($media['refersitemap']);
+			$arrsitemapname = array();
+			foreach($arrsitemapid as $sitemapid)
+			{
+				if($sitemapid)
+					$arrsitemapname[] = $this->document->getSiteMap($sitemapid,$this->user->getSiteId());
+			}
+			$danhmuc = "";
+			if(count($arrsitemapname))
+			{				
+				$danhmuc = implode(",",$arrsitemapname);
+			}
+			//echo $media['saleprice'];
+			$saleprice = json_decode(html_entity_decode($media['saleprice']));
+			//print_r($saleprice);
+			$shop = "";
+			if(count($saleprice))
+				foreach($saleprice as $donvi => $price)
+				{
+					$shop .= $this->document->getDonViTinh($donvi)."-".$price.",";
+				}
+			//echo $shop;
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$key, $media['mediaid'])
+				->setCellValue('B'.$key, $media['mediaparent'])
+				->setCellValue('C'.$key, $media['code'])
+				->setCellValue('D'.$key, $media['title'])
+				->setCellValue('E'.$key, $media['color'])
+				->setCellValue('F'.$key, $unit)
+				->setCellValue('G'.$key, $brand)
+				->setCellValue('H'.$key, $danhmuc)
+				->setCellValue('I'.$key, $media['price'])
+				->setCellValue('J'.$key, $shop)
+				->setCellValue('K'.$key, $media['discountpercent'])
+				->setCellValue('L'.$key, $media['pricepromotion'])
+				
+				;
+			$key++;
+		}
+		$objPHPExcel->getActiveSheet()->setTitle('Product');
+		$objPHPExcel->setActiveSheetIndex(0);
+		//
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$filename = "product".time().".xls";
+		$objWriter->save(DIR_CACHE.$filename);
+		$this->data['output'] = HTTP_IMAGE."cache/".$filename;
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
 		$this->render();
 	}
 }

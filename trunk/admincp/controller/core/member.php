@@ -145,7 +145,7 @@ class ControllerCoreMember extends Controller
 		{
 			$where .= " AND status like '".$data['status']."'";
 		}
-		
+		$where .= " Order by fullname";
 		$rows = $this->model_core_user->getList($where);
 		//Page
 		$page = $this->request->get['page'];		
@@ -218,7 +218,7 @@ class ControllerCoreMember extends Controller
 		}
 		
 		//Lay tat ca phieu ban hang
-		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
+		$where = " AND loaiphieu = 'PBH' AND khachhangid = '".$id."'";
 		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		$tongno = 0;
 		foreach($this->data['data_phieubanhang'] as $item)
@@ -271,7 +271,7 @@ class ControllerCoreMember extends Controller
 		
 		$this->id='content';
 		$this->template='core/member_form.tpl';
-		$this->layout=$this->user->getLayout();
+		//$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

@@ -19,7 +19,7 @@
         	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
             <a class="button" href="<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"><?php echo $button_cancel?></a>
              <?php } ?>
-             <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
+             <input type="hidden" id="id" name="id" value="<?php echo $post['id']?>" />
              <input type="hidden" id="mediaparent" name="mediaparent" value="<?php echo $post['mediaparent']?>" />
              <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $post['mediatype']?>" />
              <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $post['refersitemap']?>" />
@@ -73,7 +73,21 @@
                 <div style="<?php echo $displaynews?>">
         			
                     <div class="col2 left">
-                    	
+                    	<?php if($hasId) {?>
+                        
+                       
+                        <p>
+                            <label>ID</label><br>
+                            <?php if($post['id'] == ""){ ?>
+                            <input class="text" type="text" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" size="60" />
+                            <?php }else{ ?>
+                            <?php echo $post['mediaid']?>
+                            <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
+                            <?php } ?>
+                        </p>
+                        <?php }else{ ?>
+                    	<input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
+                        <?php } ?>
                         <?php if($hasTitle) {?>
                         
                        
@@ -106,12 +120,23 @@ $('#title').change(function(e) {
                         <?php } ?>
                         <?php if($hasCode){?>
                        	<p>
-                        	<label>Code</label><br>
+                        	<label>Model</label><br>
                             <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
+                        </p>
+                        <p>
+                        	<label>Qui cách</label><br>
+                            <input class="text" type="text" id="sizes" name="sizes" value="<?php echo $post['sizes']?>" size="60" />
+                         	
                         </p>
                         <p>
                         	<label>Màu sắc</label><br>
                             <input class="text" type="text" id="color" name="color" value="<?php echo $post['color']?>" size="60" />
+                         	
+                        </p>
+                        <p>
+                        	<label>Chất liệu</label><br>
+                            <input class="text" type="text" id="material" name="material" value="<?php echo $post['material']?>" size="60" />
+                         	
                         </p>
                         <p>
                             <label>Nhãn hiệu</label><br />
@@ -121,6 +146,10 @@ $('#title').change(function(e) {
                                 <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
                                 <?php } ?>
                             </select>
+                        </p>
+                        <p>
+                        	<label>Chú thích</label><br>
+                            <input class="text" type="text" id="noted" name="noted" value="<?php echo $post['noted']?>" size="60" />
                         </p>
                         <p>
                         	<label>Đơn vị</label><br>
@@ -181,10 +210,10 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <p id="frmgiaban">
+                        <!--<p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
-                        </p>
+                        </p>-->
                         
                         <p>
                             <label><?php echo $text_price?></label><br>
@@ -307,7 +336,28 @@ $(document).ready(function(e) {
             <div id="fragment-properties">
             	<div>
                 	
-                	
+                	<p>
+                    	<label>Màu sắc</label>
+                        <?php foreach($color as $it){ ?>
+                        <div>
+                        	
+                        	<?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?>
+                            <input type="checkbox"  name="loaisp[<?php echo $it['categoryid']?>]" value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'checked="checked"':''; ?> />
+                            <?php echo $it['categoryname']?>
+                        </div>
+                        <?php } ?>
+                    </p>
+                    <p>
+                    	<label>Size</label>
+                        <?php foreach($size as $it){ ?>
+                        <div>
+                        	
+                        	<?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?>
+                            <input type="checkbox"  name="loaisp[<?php echo $it['categoryid']?>]" value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'checked="checked"':''; ?> />
+                            <?php echo $it['categoryname']?>
+                        </div>
+                        <?php } ?>
+                    </p>
                     <p>
                     	<label><?php echo $text_status?></label>
                         <?php foreach($statuspro as $it){ ?>
@@ -564,7 +614,7 @@ function save()
 		function(data){
 			if(data=="true")
 			{
-				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"
+				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>";
 				
 			}
 			else

@@ -82,6 +82,8 @@ function PhieuNhapXuat()
 		$('.thanhtien').each(function(index, element) {
             sum += Number(stringtoNumber($(this).html()));
         });
+		var thuphi = Number(stringtoNumber($('#thuphi').val()));
+		sum+=thuphi;
 		$('#tongcong').html(formateNumber(sum));
 		$('#tongtien').val(sum);
 		var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
@@ -151,6 +153,52 @@ function PhieuNhapXuat()
 		$("#popup-content").load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
 			$("#popup").dialog("open");
 		});
+	}
+	
+	this.importDetail = function()
+	{
+		$('body').append('<div id="history_form" style="display:none"></div>');
+		var eid = "#history_form";
+		
+		
+		$(eid).attr('title','Import dữ liệu');
+			$( eid ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: 600,
+				modal: true,
+				close:function()
+					{
+						$(eid).remove();
+					},
+				buttons: {
+				
+					'Import':function()
+					{
+						//$('#history_form').scrollTop(500);
+						//$('.item').removeClass('itemselected');
+						//$('#history_form').scrollTop(0)
+						//alert(i)
+						//var k = 2;
+						//pro.postProduct(k);
+						
+					},
+					'Đóng': function() 
+					{
+						
+						$(eid).dialog( "close" );
+						window.location.reload();
+					},
+				}
+				
+			});
+		
+			
+			$(eid).load("?route=module/product/import&dialog=true",function(){
+				$(eid).dialog("open");	
+			});
 	}
 }
 
