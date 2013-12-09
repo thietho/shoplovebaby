@@ -13,7 +13,7 @@ class ControllerCommonHeader extends Controller
 		
 		$this->id="header";
 		$this->template="common/header.tpl";
-		//$this->data['mainmenu'] = $this->getMenu("menu-chinh");
+		$this->data['mainmenu'] = $this->getMenu("menu-chinh");
 		$this->render();
 	}
 	
@@ -64,8 +64,8 @@ class ControllerCommonHeader extends Controller
 					$link = "<a ".$currenttab." href='".$item['forward']."' title='".$item['sitemapname']."'>".html_entity_decode($item['sitemapname'])."</a>";
 					break;	
 			}
-			
-			
+			$table = '<table><tr><td><div class="ben-menu-left"></div></td><td>'.$link.'</td><td><div class="ben-menu-right"></div></td></tr></table>';
+			$link = $table;
 			
 			$str .= "<li>";
 			$str .= $link;
