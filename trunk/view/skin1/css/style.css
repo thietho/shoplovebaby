@@ -239,7 +239,7 @@ ul.ben-tab-list li {float: left;}
 
 
 /* Tables */
-table {margin-bottom: 0.5em; width: 100%;}
+table { width: 100%;}
 th {font-weight: bold;}
 thead th {text-align:center}
 th,td,caption {/*padding: 4px 10px 4px 5px;*/}
@@ -562,8 +562,8 @@ display:block;
 
 
 /* Sections */
-.ben-section {margin-bottom: 10px; }
-.ben-sidebar .ben-section{}
+.ben-section {margin-bottom: 5px; }
+.ben-sidebar .ben-section{border:#bbbbbb thin solid;}
 #ben-maincontent .ben-section{}
 
 .ben-section-content{}
@@ -572,7 +572,7 @@ display:block;
 
 .ben-section-title {
 	
-	height:33px;
+	
 	color: #FFF;
 	font: bold 1.2em sans-serif;
 	
@@ -580,6 +580,7 @@ display:block;
 .ben-section-title .title
 {
 	padding:7px 20px;
+	text-transform:uppercase;
 	
 }
 .ben-sidebar .ben-section-title {background:#fc9f2e}
@@ -819,4 +820,33 @@ ul#menu li ul li div:hover {
 	margin-left:256px;
 	margin-top:138px;
 	background:#fff;
+}
+#ben-top-support
+{
+	position:absolute;
+	margin-left:386px;
+	margin-top:20px;
+	text-align:center;	
+}
+#ben-top-hotline
+{
+	color:#30B16B;
+	font-size:1.3em;	
+}
+#ben-top-cart
+{
+	position:absolute;
+	margin-left:695px;
+	margin-top:24px;
+	background:#fff;
+	border-radius:5px;
+	padding:10px;
+}
+#ben-top-login
+{
+	position:absolute;
+	margin-left:857px;
+	margin-top:24px;
+	
+	padding:10px;
 }
