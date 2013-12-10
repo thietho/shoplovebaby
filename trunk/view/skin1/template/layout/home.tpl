@@ -86,16 +86,7 @@ $(document).ready(function() {
 		
 	});
 </script>
-<script language="javascript">
-$(function() {
-	$(".ben-datepicker").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'dd-mm-yy',
-			
-			});
-	});
-</script>
+
 
 
 <body>
@@ -112,12 +103,10 @@ $(function() {
         </div>
         
         
-    
+    	<?php echo $footer?> 
     </div>
 </div>
-    <div id="ben-bottom">
-        <?php echo $footer?> 
-    </div>
+    
     <div id="ben-popup" style="display:none">
         <div id="ben-popup-content"></div>
         

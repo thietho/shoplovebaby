@@ -594,14 +594,38 @@ display:block;
 
 /*---------- FOOTER AREA ------------*/
 #ben-footer {
-	
-	color: #777;
-	padding: 16px 5px 4px;
+	background:#30b16b;
+	color: #fff;
 }
-#ben-footer-left {}
+#ben-footer-left
+{
+	margin-left: 23px;
+}
+#ben-footer-left #shopname
+{
+	font-weight:bold;
+	font-size:1.5em;
+	margin:26px 0 10px;
+}
 #ben-footer-right {
-	width: 459px;
-	text-align: right;
+	width: 508px;
+	text-align: center;
+	margin-top:46px;
+	color:#000;
+}
+#ben-footer-right ul
+{
+	margin:0;
+}
+
+#ben-footer-right li
+{
+	display:inline;
+	padding:0 3px;
+}
+#ben-footer-powerby
+{
+	margin-top:10px;	
 }
 #ben-footer p {margin-bottom: 0.4em;}
 #ben-footer .text-separator {
@@ -849,4 +873,9 @@ ul#menu li ul li div:hover {
 	margin-top:24px;
 	
 	padding:10px;
+}
+#ben-footer-brand
+{
+	background:#fff;
+	border:thin dotted #30B16B;	
 }
