@@ -1,5 +1,5 @@
 <div class="ben-section">
-	<div class="ben-section-title"><div class="title">Tìm kiếm nâng cao</div></div>
+	<div class="ben-section-title"><div class="title">Tìm kiếm sản phẩm</div></div>
     <div id="ben-searchform" class="ben-section-content">
     	
         <p>
