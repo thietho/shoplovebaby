@@ -2,8 +2,8 @@
     	<table>
         	<?php for($i=0;$i<count($medias);){ ?>
             <tr>
-            	<?php for($j=0;$j<4;$j++){ ?>
-                <td width="25%">
+            	<?php for($j=0;$j<3;$j++){ ?>
+                <td width="33%">
                 	<?php $media = $medias[$i]?>
                     <?php $i++?>
                     <?php if(count($media)){ ?>
@@ -12,7 +12,7 @@
                             <tr class="product-list-image">
                                 <td>
                                     <?php if($media['discountpercent']){ ?>
-                                    <div class="flagdiscount ben-icon">-<?php echo $media['discountpercent']?>%</div>
+                                    <div class="flagdiscount ben-icon"></div>
                                     <?php } ?>
                                     <?php if(in_array("sanphamhot",$media['properties'])){ ?>
                                     <div id="ben-icon-hot" class="ben-icon">

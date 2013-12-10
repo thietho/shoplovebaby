@@ -34,6 +34,7 @@ class ControllerModuleProductlist extends Controller
 		//$_GET = $this->document->getPara();
 		//Get list
 		$child = array();
+		if($sitemapid !="")
 		$this->model_core_sitemap->getTreeSitemap($sitemapid,$child,$this->member->getSiteId());
 		$listsitemap = array();
 		if(count($child))

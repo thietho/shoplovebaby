@@ -24,7 +24,8 @@ class ControllerPageHome extends Controller
 		
 			$arr = array("bannerhome",0,"",$template);
 			$this->data['bannerhome'] = $this->loadModule('module/block','getList',$arr);
-			//Tin nóng
+			/*//Tin nóng
+			$medias = array();
 			$template = array(
 						  'template' => "home/news_list.tpl",
 						  'width' => 514,
@@ -35,9 +36,10 @@ class ControllerPageHome extends Controller
 			$medias = $this->getHomeMedias('module/news');
 			
 			$arr = array("",13,"",$template,$medias);
-			$this->data['newshome'] = $this->loadModule('module/productlist','index',$arr);
+			$this->data['newshome'] = $this->loadModule('module/productlist','index',$arr);*/
 			
 			//San pham moi
+			/*$medias = array();
 			$template = array(
 						  'template' => "module/product_list.tpl",
 						  'width' => 170,
@@ -49,10 +51,10 @@ class ControllerPageHome extends Controller
 			$medias = $this->getHomeMedias('module/product');
 			
 			$arr = array("",20,"",$template,$medias);
-			$this->data['producthome'] = $this->loadModule('module/productlist','index',$arr);
+			$this->data['producthome'] = $this->loadModule('module/productlist','index',$arr);*/
 			
 			//San pham noi bat
-			$template = array(
+			/*$template = array(
 						  'template' => "home/product.tpl",
 						  'width' => 170,
 						  'height' =>170,
@@ -63,10 +65,29 @@ class ControllerPageHome extends Controller
 			$medias = $this->getProduct('sanphamhot');
 			//print_r($medias);
 			$arr = array("",100000,"",$template,$medias);
-			$this->data['producthot'] = $this->loadModule('module/productlist','index',$arr);
+			$this->data['producthot'] = $this->loadModule('module/productlist','index',$arr);*/
 			/*$arr = array("gioithieu");
 			$this->data['producthome'] = $this->loadModule('module/information','index',$arr);*/
 			//
+			$data_sitemap = array();
+			$data_sitemap = $this->model_core_sitemap->getListByParent("san-pham", $this->member->getSiteId());
+			$template = array(
+						  'template' => "module/product_list.tpl",
+						  'width' => 170,
+						  'height' =>170,
+						  'paging' => false,
+						  'sorting' =>false
+						  );
+			foreach($data_sitemap as $sitemap)
+			{
+				
+				//$sitemap = $this->model_core_sitemap->getItem("mypham",$this->member->getSiteId());
+				//$medias = $this->getProduct($sitemap['sitemapid'],"");
+				$arr = array($sitemap['sitemapid'],1000,$sitemap['sitemapname'],$template,$medias);
+				$this->data['producthome'][$sitemap['sitemapid']]['title'] = $sitemap['sitemapname'];
+				$this->data['producthome'][$sitemap['sitemapid']]['data'] = $this->loadModule('module/productlist','index',$arr);
+				
+			}
 			
 			$this->loadSiteBar();
 			$this->document->title = $this->document->setup['Title'] ." - ". $this->document->setup['Slogan'];
