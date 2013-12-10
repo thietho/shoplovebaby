@@ -10,6 +10,14 @@
 {	
 	color:#000;
 }
+.product-price-no
+{
+	text-decoration:line-through;
+}
+.product-pricepromotion
+{
+	color:#F00	
+}
 .product table
 {
 	width:100%;
