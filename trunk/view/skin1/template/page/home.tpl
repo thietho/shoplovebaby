@@ -10,19 +10,22 @@
     	<?php echo $bannerhome?>
     	<div class="ben-section">
         	
-        	<div class="ben-section-breadcrumb">Tin nóng</div>
+        	
+            
             <div class=" ben-section-content">
-            	<?php echo $newshome?>
-            </div>
-            <div class="ben-section-breadcrumb">Bóng đá</div>
-            <div class=" ben-section-content">
-            	<?php echo $producthome?>
+            	
+                <?php foreach($producthome as $item){ ?>
+                <?php if($item['data']){ ?>
+                <h3><?php echo $item['title']?></h3>
+            	<?php echo $item['data']?>
+                <?php } ?>
+                <?php } ?>
             </div>
             
-            <div class="ben-section-breadcrumb">Sản phẩm nổi bật</div>
+            <!--<div class="ben-section-breadcrumb">Sản phẩm nổi bật</div>
             <div class=" ben-section-content">
             	<?php echo $producthot?>
-            </div>
+            </div>-->
             
         	
         </div>
