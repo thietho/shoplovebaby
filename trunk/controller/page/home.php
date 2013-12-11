@@ -18,8 +18,8 @@ class ControllerPageHome extends Controller
 			//Banner home
 			$template = array(
 						  'template' => "home/bannerhome.tpl",
-						  'width' => 767,
-						  'height' =>767
+						  'width' => 764,
+						  'height' =>764
 						  );
 		
 			$arr = array("bannerhome",0,"",$template);
@@ -41,7 +41,7 @@ class ControllerPageHome extends Controller
 				
 				//$sitemap = $this->model_core_sitemap->getItem("mypham",$this->member->getSiteId());
 				//$medias = $this->getProduct($sitemap['sitemapid'],"");
-				$arr = array($sitemap['sitemapid'],1000,$sitemap['sitemapname'],$template,$medias);
+				$arr = array($sitemap['sitemapid'],3,$sitemap['sitemapname'],$template,$medias);
 				$this->data['producthome'][$sitemap['sitemapid']]['title'] = $sitemap['sitemapname'];
 				$this->data['producthome'][$sitemap['sitemapid']]['data'] = $this->loadModule('module/productlist','index',$arr);
 				

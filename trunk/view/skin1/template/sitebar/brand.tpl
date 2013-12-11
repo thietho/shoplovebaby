@@ -3,7 +3,7 @@
     <div>
         <ul class="ben-sitebar-list">
             <?php foreach($brands as $item){?>
-            <li><a href="#"><?php echo $item['categoryname']?></a></li>
+            <li><a href="<?php echo $this->document->createLink('brand',$item['categoryid'])?>"><?php echo $item['categoryname']?></a></li>
             <?php } ?>
         </ul>
     </div>
