@@ -177,7 +177,7 @@ class ControllerPageDetail extends Controller
 											  'paging' => true,
 											  'sorting' =>true
 											  );
-							$arr = array($this->document->sitemapid,3,"",$template);
+							$arr = array($this->document->sitemapid,24,"",$template);
 							$this->data['module'] = $this->loadModule('module/productlist','index',$arr);
 	
 						}

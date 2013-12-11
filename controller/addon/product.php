@@ -75,7 +75,7 @@ class ControllerAddonProduct extends Controller
 							  'paging' => true,
 							  'sorting' =>true
 							  );
-		$arr = array("",12,"Kết quả tìm kiếm",$template,$medias);
+		$arr = array("",24,"Kết quả tìm kiếm",$template,$medias);
 		$this->data['output'] = $this->loadModule('module/productlist','index',$arr);
 			
 			

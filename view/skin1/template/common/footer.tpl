@@ -74,19 +74,17 @@ function runbanner()
     </div>
     <div id="ben-footer-right" class="ben-right">
     	<ul>
-        	<li><a href="#">Trang chủ</a></li>
+        	<li><a href="<?php echo HTTP_SERVER?>">Trang chủ</a></li>
             <li>|</li>
-            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="<?php echo $this->document->createLink('gioi-thieu')?>">Giới thiệu</a></li>
             <li>|</li>
-            <li><a href="#">Tin tức</a></li>
+            <li><a href="<?php echo $this->document->createLink('tin-tuc')?>">Tin tức</a></li>
             <li>|</li>
-            <li><a href="#">Khuyến mãi</a></li>
+            <li><a href="<?php echo $this->document->createLink('khuyen-mai')?>">Khuyến mãi</a></li>
             <li>|</li>
-            <li><a href="#">Bản đồ</a></li>
+            <li><a href="<?php echo $this->document->createLink('tu-van')?>">Tư vấn</a></li>
             <li>|</li>
-            <li><a href="#">Tư vấn</a></li>
-            <li>|</li>
-            <li><a href="#">Liên hệ</a></li>
+            <li><a href="<?php echo $this->document->createLink('lien-he')?>">Liên hệ</a></li>
         </ul>
         <div id="ben-footer-powerby">
         	
