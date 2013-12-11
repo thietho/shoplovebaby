@@ -11,71 +11,20 @@
 
     <table>
     	<tr>
+        	<?php foreach($brands as $item){?>
         	<td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/dneekids.png" />
+            	<a href="<?php echo $this->document->createLink('brand',$item['categoryid'])?>">
+                    <img src="<?php echo $item['imagethumbnail']?>" />
                 </a>
             </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
+            <?php } ?>
+            <?php foreach($brands as $item){?>
+        	<td>
+            	<a href="<?php echo $this->document->createLink('brand',$item['categoryid'])?>">
+                    <img src="<?php echo $item['imagethumbnail']?>" />
                 </a>
             </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/goon.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/papa.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/rita.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/yoko.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
-            <td>
-            	<a href="#">
-                    <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>thuonghieu/drbrowns.png" />
-                </a>
-            </td>
+            <?php } ?>
             
         </tr>
     </table>

@@ -65,9 +65,12 @@ class ControllerCommonHeader extends Controller
 				default:
 					$link = "<a ".$currenttab." href='".$this->document->createLink($item['sitemapid'])."' title='".$item['sitemapname']."'>".html_entity_decode($item['sitemapname'])."</a>";
 			}
-			$table = '<table><tr><td><div class="ben-menu-left"></div></td><td>'.$link.'</td><td><div class="ben-menu-right"></div></td></tr></table>';
-			$link = $table;
-			
+			$deep = $this->model_core_sitemap->getDeep($item['sitemapid'], $siteid);
+			if($deep == 1)
+			{
+				$table = '<table><tr><td><div class="ben-menu-left"></div></td><td>'.$link.'</td><td><div class="ben-menu-right"></div></td></tr></table>';
+				$link = $table;
+			}
 			$str .= "<li>";
 			$str .= $link;
 			

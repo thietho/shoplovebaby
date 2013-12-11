@@ -26,18 +26,18 @@
         <div id="ben-top-cart">
         	<table>
             	<tr>
-                	<td><a href="#"><img src="<?php echo HTTP_SERVER.DIR_IMAGE?>icon-cart.png" alt="Giỏ hàng" title="Giỏ hàng"/></a></td>
+                	<td><a href="<?php echo $this->document->createLink('cart')?>"><img src="<?php echo HTTP_SERVER.DIR_IMAGE?>icon-cart.png" alt="Giỏ hàng" title="Giỏ hàng"/></a></td>
                    	<td>Giỏ hàng</td>
-                    <td><span>0</span> sản phẩm</td>
+                    <td><strong><span id="cartcout">0</span></strong> sản phẩm</td>
                 </tr>
             </table>
         </div>
         <div id="ben-top-login">
         	<table>
             	<tr>
-                	<td><a href="#">Đăng nhập</a></td>
+                	<td><a href="<?php echo $this->document->createLink('login')?>">Đăng nhập</a></td>
                    	<td>|</td>
-                    <td>Đăng ký</td>
+                    <td><a href="<?php echo $this->document->createLink('register')?>">Đăng ký</a></td>
                 </tr>
             </table>
         </div>
