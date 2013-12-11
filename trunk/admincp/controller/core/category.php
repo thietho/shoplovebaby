@@ -84,15 +84,10 @@ class ControllerCoreCategory extends Controller
 		}
 		else
 		{
-			if (($this->request->post)) 
-			{
 			
-				$this->loadModule('core/postcontent',"savepost");
-				$this->redirect("index.php?route=core/category");
-			}
 			//$this->load->language('core/category');
 			//$this->data = array_merge($this->data, $this->language->getData());
-			$categoryid = $this->request->get['categoryid'];
+			/*$categoryid = $this->request->get['categoryid'];
 			$category = $this->model_core_category->getItem($this->request->get['categoryid']);
 			
 			$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
@@ -111,9 +106,10 @@ class ControllerCoreCategory extends Controller
 			if($this->data['post']['imagepath'] != "")
 			{
 				$this->data['post']['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], 200, 200);
-			}
+			}*/
 			$this->id='content';
-			$this->template='core/category_content.tpl';
+			$this->data['output'] = $this->loadModule('core/postcontent');
+			$this->template='common/output.tpl';
 			$this->layout="layout/center";
 			$this->render();
 		}
@@ -180,7 +176,7 @@ class ControllerCoreCategory extends Controller
 			$link_addchild = $this->url->http('core/category/update&parent='.$item['categoryid']);
 			$text_addchild = "Add child";
 			
-			$link_editcontent = $this->url->http('core/category/edit&categoryid='.$item['categoryid']);
+			$link_editcontent = $this->url->http('module/information&sitemapid=cat'.$item['categoryid']."&goback=core/category");
 			$text_editcontent = "Edit Content";
 			
 			$tab="";
