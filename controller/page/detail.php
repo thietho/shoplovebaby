@@ -13,8 +13,7 @@ class ControllerPageDetail extends Controller
 	{
 		if($this->cachehtml->iscacht($this->name) == false)
 		{
-			$arr = array('menu-chinh');
-			$this->data['mainmenu'] = $this->loadModule('common/header','showMenu',$arr);
+			
 			
 			$this->load->model("core/sitemap");
 			$this->document->sitemapid = $this->request->get['sitemapid'];
@@ -173,10 +172,12 @@ class ControllerPageDetail extends Controller
 											  'template' => "module/product_list.tpl",
 											  'width' => 170,
 											  'height' =>170,
+											  'widthpreview' => 450,
+						  					  'heightpreview' =>450,
 											  'paging' => true,
 											  'sorting' =>true
 											  );
-							$arr = array($this->document->sitemapid,12,"",$template);
+							$arr = array($this->document->sitemapid,3,"",$template);
 							$this->data['module'] = $this->loadModule('module/productlist','index',$arr);
 	
 						}
@@ -243,10 +244,11 @@ class ControllerPageDetail extends Controller
 	private function loadSiteBar()
 	{
 		//Left sitebar
+		$this->data['leftsitebar']['search'] = $this->loadModule('sitebar/searchproduct');
 		$arr = array('san-pham');
 		$this->data['leftsitebar']['produtcategory'] = $this->loadModule('sitebar/catalogue','index',$arr);
-		$this->data['leftsitebar']['search'] = $this->loadModule('sitebar/searchproduct');
-		$this->data['leftsitebar']['dknhantinh'] = $this->loadModule('sitebar/dangkynhantin');
+		$this->data['leftsitebar']['brand'] = $this->loadModule('sitebar/brand');
+		//$this->data['leftsitebar']['dknhantinh'] = $this->loadModule('sitebar/dangkynhantin');
 		
 		//$this->data['leftsitebar']['exchange'] = $this->loadModule('sitebar/exchange');
 		//$this->data['leftsitebar']['weblink'] = $this->loadModule('sitebar/weblink');

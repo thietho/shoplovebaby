@@ -6,10 +6,8 @@
     </div>
     
 	<div class="ben-left" id="ben-maincontent">
-    	
-    	<?php echo $bannerhome?>
     	<div class="ben-section">
-        	
+        	<?php echo $bannerhome?>
         	
             
             <div class=" ben-section-content">

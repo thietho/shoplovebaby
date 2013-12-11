@@ -60,9 +60,10 @@ class ControllerCommonHeader extends Controller
 					$link = "<a ".$currenttab." href='".HTTP_SERVER."'>".html_entity_decode($item['sitemapname'])."</a>";
 					break;
 				case "module/forward":
-				default:
 					$link = "<a ".$currenttab." href='".$item['forward']."' title='".$item['sitemapname']."'>".html_entity_decode($item['sitemapname'])."</a>";
 					break;	
+				default:
+					$link = "<a ".$currenttab." href='".$this->document->createLink($item['sitemapid'])."' title='".$item['sitemapname']."'>".html_entity_decode($item['sitemapname'])."</a>";
 			}
 			$table = '<table><tr><td><div class="ben-menu-left"></div></td><td>'.$link.'</td><td><div class="ben-menu-right"></div></td></tr></table>';
 			$link = $table;
