@@ -3,7 +3,7 @@
     <div id="ben-top">
     	
         <div class="ben-left" id="ben-logo">
-            <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>logo.png" height="110px" alt="Logo" title="logo"/>
+            <a href="<?php echo HTTP_SERVER?>"><img src="<?php echo HTTP_SERVER.DIR_IMAGE?>logo.png" height="110px" alt="Logo" title="logo"/></a>
         </div>
     	
         
@@ -33,6 +33,7 @@
             </table>
         </div>
         <div id="ben-top-login">
+        	<?php if($this->member->getId()==""){?>
         	<table>
             	<tr>
                 	<td><a href="<?php echo $this->document->createLink('login')?>">Đăng nhập</a></td>
@@ -40,6 +41,15 @@
                     <td><a href="<?php echo $this->document->createLink('register')?>">Đăng ký</a></td>
                 </tr>
             </table>
+            <?php } else { ?>
+            <table>
+            	<tr>
+                	<td><a href="<?php echo $this->document->createLink('member')?>"><?php echo $this->member->getId()?></a></td>
+                   	<td>|</td>
+                    <td><a href="#" onclick="logout()">Đăng xuất</a></td>
+                </tr>
+            </table>
+            <?php } ?>
         </div>
         <div id="ben-top-menu">
         	<div class="ben-navigation ">
