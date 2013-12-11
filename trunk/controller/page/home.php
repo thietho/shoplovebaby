@@ -64,7 +64,7 @@ class ControllerPageHome extends Controller
 		$this->data['leftsitebar']['search'] = $this->loadModule('sitebar/searchproduct');
 		$arr = array('san-pham');
 		$this->data['leftsitebar']['produtcategory'] = $this->loadModule('sitebar/catalogue','index',$arr);
-		
+		$this->data['leftsitebar']['brand'] = $this->loadModule('sitebar/brand');
 		//$this->data['leftsitebar']['dknhantinh'] = $this->loadModule('sitebar/dangkynhantin');
 		
 		//$this->data['leftsitebar']['exchange'] = $this->loadModule('sitebar/exchange');

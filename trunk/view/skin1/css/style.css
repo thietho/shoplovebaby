@@ -879,3 +879,18 @@ ul#menu li ul li div:hover {
 	background:#fff;
 	border:thin dotted #30B16B;	
 }
+.ben-sitebar-list
+{
+	list-style:url(../image/icon-list.png) inside ;
+	margin:0;
+	
+}
+.ben-sitebar-list li
+{
+	border-bottom:#CCC thin solid;
+	padding:5px 8px;
+}
+.ben-sitebar-list li:last-child
+{
+	border-bottom:none;
+}

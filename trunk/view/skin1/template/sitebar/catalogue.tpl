@@ -1,13 +1,13 @@
 <script type='text/javascript' language='javascript' src='<?php echo HTTP_SERVER.DIR_VIEW?>js/menu-collapsed.js'></script>
-                    <div class="ben-section">
-                    	<div class="ben-section-title"><div class="title">Sản phẩm</div></div>
-                        <div>
-                        	
-                        	<ul id="menu">
-                                <?php echo $menu?>
-                            </ul>
-                        </div>
-                    </div>
+<div class="ben-section">
+    <div class="ben-section-title"><div class="title">Sản phẩm</div></div>
+    <div>
+        
+        <ul id="menu">
+            <?php echo $menu?>
+        </ul>
+    </div>
+</div>
 <script language="javascript">
 
 $(document).ready(function(){
