@@ -428,7 +428,7 @@ z-index:100;
 }
 #ben-main-nav a{
 display:block;
-padding:7px 28px;
+padding:7px 29px;
 font-weight:bold;
 color:#fff;
 text-decoration:none;
@@ -898,4 +898,20 @@ ul#menu li ul li div:hover {
 .ben-sitebar-list li:last-child
 {
 	border-bottom:none;
+}
+.tooltip-title
+{
+	background:#FC9F2E;
+	font-weight:bold;	
+	padding:5px;
+	font-size:1.2em;
+	color:#FFF;
+}
+.tooltip-title span
+{
+	color:#FF0;	
+}
+.tooltip-summary
+{
+	padding:5px;
 }
