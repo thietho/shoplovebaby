@@ -41,7 +41,7 @@ class ControllerPageHome extends Controller
 				
 				//$sitemap = $this->model_core_sitemap->getItem("mypham",$this->member->getSiteId());
 				//$medias = $this->getProduct($sitemap['sitemapid'],"");
-				$arr = array($sitemap['sitemapid'],3,$sitemap['sitemapname'],$template,$medias);
+				$arr = array($sitemap['sitemapid'],6,$sitemap['sitemapname'],$template,$medias);
 				$this->data['producthome'][$sitemap['sitemapid']]['title'] = $sitemap['sitemapname'];
 				$this->data['producthome'][$sitemap['sitemapid']]['data'] = $this->loadModule('module/productlist','index',$arr);
 				
