@@ -428,7 +428,7 @@ z-index:100;
 }
 #ben-main-nav a{
 display:block;
-padding:7px 29px;
+padding:7px 20px;
 font-weight:bold;
 color:#fff;
 text-decoration:none;
@@ -448,7 +448,10 @@ float:left;
 position:relative;
 margin-right:3px;
 }
-
+#ben-main-nav li:last-child
+{
+	margin-right:0;	
+}
 #ben-main-nav a.current-tab{
 	background-color:#000000;
 	color:#FFFFFF;
@@ -611,6 +614,7 @@ display:block;
 	font-weight:bold;
 	font-size:1.5em;
 	margin:26px 0 10px;
+	color:#FC9F2E;
 }
 #ben-footer-right {
 	width: 508px;
