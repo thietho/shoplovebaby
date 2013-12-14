@@ -63,7 +63,7 @@ function runbanner()
 	
     
     <div class="ben-left" id="ben-footer-left">
-    	<div id="shopname">SHOP BABY LOVE</div>
+    	<div id="shopname">SHOP LOVE BABY</div>
         
         <p>
             Địa chỉ: 296 Huỳnh Văn Bánh, phường 11, quận Phú Nhuận, Tp.HCM<br />

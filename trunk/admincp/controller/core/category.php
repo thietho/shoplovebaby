@@ -262,18 +262,25 @@ class ControllerCoreCategory extends Controller
 	{
 		if($data['id'] == "")
 		{
-			$this->load->model("core/category");
-			$item = $this->model_core_category->getItem($data['categoryid']);
-			if(count($item)>0)
-				$this->error['categoryid'] = "Category is used";
+			if($this->validation->_isId(trim($data['categoryid'])) == false)
+			{
+				$this->error['categoryid'] = "Mã danh mục không hợp lệ";
+			}
+			else
+			{
+				$this->load->model("core/category");
+				$item = $this->model_core_category->getItem($data['categoryid']);
+				if(count($item)>0)
+					$this->error['categoryid'] = "Mã danh mục đã được sử dụng";
+			}
 		}
 		if ((strlen($data['categoryid']) == 0)) 
 		{
-      		$this->error['categoryid'] = "Category Id is not null";
+      		$this->error['categoryid'] = "Mã danh mục không được rỗng";
     	}
 		if ((strlen($data['categoryname']) == 0)) 
 		{
-      		$this->error['categoryname'] = "Category name is not null";
+      		$this->error['categoryname'] = "Tên danh mục không được rỗng";
     	}
 
 		if (count($this->error)==0) {
