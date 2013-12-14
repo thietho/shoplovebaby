@@ -3,7 +3,7 @@
 	<div class="section-title">
     	<?php echo $breadcrumb?>
     </div>
-    
+    <div id="error" class="error" style="display:none"></div>
     <div class="section-content padding1">
     
     	<form name="frmPost" id="frmPost"  action="" method="post" enctype="multipart/form-data">
@@ -619,6 +619,7 @@ function save()
 			}
 			else
 			{
+				$('#error').html(data).show('slow');
 				$.unblockUI();
 			}
 			

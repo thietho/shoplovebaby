@@ -412,7 +412,7 @@ z-index:100;
 }
 .ben-navigation 
 {
-	
+	float:right;
 }
 .ben-menu-left
 {
@@ -446,7 +446,7 @@ color:red;
 #ben-main-nav li{
 float:left;
 position:relative;
-margin-left:3px;
+margin-right:3px;
 }
 
 #ben-main-nav a.current-tab{
@@ -776,7 +776,7 @@ ul#menu li ul li div:hover {
 #ben-top-menu
 {
 	position:absolute;
-	margin-left:250px;
+	width:1000px;
 	margin-top:105px;
 }
 

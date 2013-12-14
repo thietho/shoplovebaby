@@ -2,7 +2,7 @@ $(document).ready(
 	function() {
 		var $container = $(".container");
 		$container.wtRotator({
-			width:764,
+			width:762,
 			height:323,
 			button_width:24,
 			button_height:24,
