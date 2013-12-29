@@ -210,15 +210,17 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <!--<p id="frmgiaban">
+                        <p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
-                        </p>-->
+                        </p>
                         
                         <p>
                             <label><?php echo $text_price?></label><br>
                             <input class="text number" type="text" id="price" name="price" value="<?php echo $post['price']?>" size="60" />
+                            <input class="text short" type="text" id="noteprice" name="noteprice" value="<?php echo $post['noteprice']?>" />
                         </p>
+                        
                         <p>
                             <label>Phần trăm giảm giá</label><br>
                             <input class="text number" type="text" id="discountpercent" name="discountpercent" value="<?php echo $post['discountpercent']?>" />%
