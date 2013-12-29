@@ -282,25 +282,7 @@ final class User {
 		}
 		return $layout;
 	}
-	public function writeLog($detail)
-	{
-		$logdate = $this->date->getToday();
-		$field=array(
-
-						'logdate',
-						'detail',
-						'userid'
-						
-						);
-						$value=array(
-
-						$logdate,
-						$detail,
-						$this->userid
-						);
-						$this->db->insertData("log",$field,$value);
-
-	}
+	
 
 	public function getNhanVien()
 	{

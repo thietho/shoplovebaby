@@ -3,7 +3,7 @@ class ControllerSitebarHitcounter extends Controller
 {
 	public function index()
 	{
-		$this->getHitCounter();
+		//$this->getHitCounter();
 		$this->id="content";
 		$this->template="sitebar/hitcounter.tpl";
 		$this->render();
