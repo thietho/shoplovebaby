@@ -1,11 +1,11 @@
 <div id="ben-footer">
 	<div id="ben-footer-brand">
     	<style>
-#ben-sileshowproduct img
-{
-	margin-right:10px;	
-}
-</style>
+		#ben-sileshowproduct img
+		{
+			margin-right:10px;	
+		}
+		</style>
 <script type='text/javascript' language='javascript' src='<?php echo HTTP_SERVER.DIR_VIEW?>js/crawler.js'></script>
 <div class="marquee" id="mycrawler">
 
