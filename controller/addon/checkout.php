@@ -67,7 +67,7 @@ class ControllerAddonCheckout extends Controller
 			$this->mailsmtp->sendMail($mail);
 			//Gui don hang den khach hang
 			$email = $this->model_core_media->getInformation("setting", 'EmailContact');
-			$mail['from'] = "cosmetics@mylanbeauty.net";
+			$mail['from'] = "info@shoplovebaby.com";
 			$mail['FromName'] = "Bộ phận bán hàng - ".$this->document->setup['Title'];
 			$mail['to'] = $data['email'];
 			$mail['name'] = $data['customername'];
