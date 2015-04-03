@@ -13,11 +13,11 @@
             	<tr>
                 	<td>Hổ trợ trực tuyến:</td>
                     <td>
-                    	<a href="ymsgr:sendim?shop_lovebaby"><img align="absmiddle" alt="Ho tro truc tuyen" border="0" src="http://opi.yahoo.com/online?u=shop_lovebaby&amp;m=g&amp;t=1"></a>
+                    	<a href="ymsgr:sendim?haytinem_206‏"><img align="absmiddle" alt="Ho tro truc tuyen" border="0" src="http://opi.yahoo.com/online?u=haytinem_206‏&amp;m=g&amp;t=1"></a>
                     </td>
                     <td>
-                    	<a onclick="return skypeCheck();" href="skype:shoplovebaby?chat">
-                            <img border="0" src="http://mystatus.skype.com/smallclassic/shoplovebaby">
+                    	<a onclick="return skypeCheck();" href="skype:hotrang1987?chat">
+                            <img border="0" src="http://mystatus.skype.com/smallclassic/hotrang1987">
                         </a>
                     </td>
                 </tr>
