@@ -64,10 +64,9 @@ function runbanner()
     
     <div class="ben-left" id="ben-footer-left">
     	<div id="shopname">SHOP LOVE BABY</div>
-        
         <p>
             Địa chỉ: 273/29/21A nguyễn Văn Đậu, Phường 11 , Bình Thạnh‏, Tp.HCM<br />
-            Điện thoại: 083.8431166‏ - 0909.267.886‏<br />
+           	Điện thoại: 083.8431166 - 0909.267.886<br>
             Email: shoplovebaby@gmail.com<br />
             Fan page: www.facebook.com/shoplovebaby123
         </p>
