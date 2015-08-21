@@ -20,11 +20,6 @@
                 <?php } ?>
             </div>
             
-            <!--<div class="ben-section-breadcrumb">Sản phẩm nổi bật</div>
-            <div class=" ben-section-content">
-            	<?php echo $producthot?>
-            </div>-->
-            
         	
         </div>
     </div>

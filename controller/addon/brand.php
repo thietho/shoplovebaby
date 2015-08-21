@@ -15,9 +15,9 @@ class ControllerAddonBrand extends Controller
 		$this->load->model("core/sitemap");
 		if($categoryid=="")
 		{
-			$arr = split("-",$this->request->get['id']);
-			$categoryid = $arr[0];
-			$sitemapid = $arr[1];
+			@$arr = split("-",$this->request->get['id']);
+			@$categoryid = $arr[0];
+			@$sitemapid = $arr[1];
 		}
 		$header = $this->document->getCategory($categoryid);
 		$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->member->getSiteId());
@@ -27,13 +27,13 @@ class ControllerAddonBrand extends Controller
 		}
 		else
 		{
-			$this->document->breadcrumb .= '<a href="' .$this->document->createLink($sitemap['sitemapid']).'">'.$sitemap['sitemapname']."</a> » ". '<a href="' .$this->document->createLink("brand",$categoryid."-".$sitemapid).'">'.$header.'</a>';
+			@$this->document->breadcrumb .= '<a href="' .$this->document->createLink($sitemap['sitemapid']).'">'.$sitemap['sitemapname']."</a> » ". '<a href="' .$this->document->createLink("brand",$categoryid."-".$sitemapid).'">'.$header.'</a>';
 		}
 		$where .= " AND brand like '".$categoryid."' AND mediaparent =''";
 		if($sitemapid)
 			$where .= " AND refersitemap like '%[".$sitemapid."]%'";
 		
-		$order = $_GET['order'];
+		@$order = $_GET['order'];
 		$orderby = "";
 		switch($order)
 		{
@@ -50,7 +50,7 @@ class ControllerAddonBrand extends Controller
 		
 		$medias = $this->model_core_media->getList($where.$orderby);
 		
-		if(count($listparent))
+		if(count(@$listparent))
 		{
 			$data = array();
 			foreach($medias as $key =>$item)

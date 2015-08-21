@@ -27,7 +27,7 @@
                 <?php } ?>
             </select>
         </p>
-    	<input type="text" class="ben-textbox" id="txt_search" name="txt_search" value="<?php echo $_GET['keyword']?>">
+    	<input type="text" class="ben-textbox" id="txt_search" name="txt_search" value="<?php echo @$_GET['keyword']?>">
         <input type="button" class="ben-button" id="btnSearch" value="Tìm">
     </div>
 </div>
@@ -47,16 +47,16 @@ $("#btnSearch").click(function(){
 		url += "[keyword=" + keyword+"]";
 	
 	
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
 	
 	window.location = url+".html";
 });
-$("#loaisp").val("<?php echo $para['loaisp']?>");
+$("#loaisp").val("<?php echo @$para['loaisp']?>");
 
-$("#nhanhieu").val("<?php echo $para['nhanhieu']?>");
-$("#gia").val("<?php echo $para['gia']?>");
-$("#txt_search").val("<?php echo $para['keyword']?>");
+$("#nhanhieu").val("<?php echo @$para['nhanhieu']?>");
+$("#gia").val("<?php echo @$para['gia']?>");
+$("#txt_search").val("<?php echo @$para['keyword']?>");
 </script>

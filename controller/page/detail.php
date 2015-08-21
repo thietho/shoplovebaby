@@ -28,7 +28,7 @@ class ControllerPageDetail extends Controller
 			{
 				$sitemap = $this->model_core_sitemap->getItem($this->document->sitemapid, $siteid);
 				
-				switch($sitemap['moduleid'])
+				switch(@$sitemap['moduleid'])
 				{
 					case "":
 						$this->data['module'] = $this->loadModule('addon/'.$this->document->sitemapid);

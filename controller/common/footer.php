@@ -15,7 +15,7 @@ class ControllerCommonFooter extends Controller
 			$mediaid = $this->member->getSiteId()."cat".$item['categoryid'];
 			$media = $this->model_core_media->getItem($mediaid);
 			
-			$imagethumbnail = HelperImage::resizePNG($media['imagepath'], 0, 60);
+			@$imagethumbnail = HelperImage::resizePNG($media['imagepath'], 0, 60);
 			$this->data['brands'][$key]['imagethumbnail'] = $imagethumbnail;
 		}
 		

@@ -61,14 +61,14 @@ class ModelCoreMedia extends ModelCoreFile
 		$from = (int)$step * (int)$to;
 		
 		//All Options
-		$keyword = $options['keyword'];
-		$mediaparent = $options['mediaparent'];
-		$mediatype = $options['mediatype'];
-		$day = $options['day'];
-		$month = $options['month'];
-		$year = $options['year'];
-		$refersitemap = $options['refersitemap'];
-		$groupkeys = $options['groupkeys'];
+		@$keyword = $options['keyword'];
+		@$mediaparent = $options['mediaparent'];
+		@$mediatype = $options['mediatype'];
+		@$day = $options['day'];
+		@$month = $options['month'];
+		@$year = $options['year'];
+		@$refersitemap = $options['refersitemap'];
+		@$groupkeys = $options['groupkeys'];
 		
 		//Where Command
 		$where = "";
@@ -150,13 +150,13 @@ class ModelCoreMedia extends ModelCoreFile
 	public function getOthersMedia($mediaid, $options, $to=20)
 	{
 		//All Options
-		$mediaparent = $options['mediaparent'];
-		$mediatype = $options['mediatype'];
-		$day = $options['day'];
-		$month = $options['month'];
-		$year = $options['year'];
-		$date = $options['date'];
-		$refersitemap = $options['refersitemap'];
+		@$mediaparent = $options['mediaparent'];
+		@$mediatype = $options['mediatype'];
+		@$day = $options['day'];
+		@$month = $options['month'];
+		@$year = $options['year'];
+		@$date = $options['date'];
+		@$refersitemap = $options['refersitemap'];
 		
 		//Where Command
 		$where = " AND mediaid != '".$mediaid."'";
@@ -515,8 +515,8 @@ class ModelCoreMedia extends ModelCoreFile
 			$newerlist = $this->model_core_media->getPaginationList($queryoptions, $newstep, $to);
 			$olderlist = $this->model_core_media->getPaginationList($queryoptions, $oldstep, $to);
 			
-			$newerid = (float)$medias[0]['id'];
-			$olderid = (float)$medias[$index]['id'];
+			@$newerid = (float)$medias[0]['id'];
+			@$olderid = (float)$medias[$index]['id'];
 			
 			if(count($newerlist) > 0 && $newstep >= 0)
 			{

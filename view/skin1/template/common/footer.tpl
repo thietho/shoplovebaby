@@ -14,7 +14,7 @@
         	<?php foreach($brands as $item){?>
         	<td>
             	<a href="<?php echo $this->document->createLink('brand',$item['categoryid'])?>">
-                    <img src="<?php echo $item['imagethumbnail']?>" />
+                    <img src="<?php echo @$item['imagethumbnail']?>" />
                 </a>
             </td>
             <?php } ?>

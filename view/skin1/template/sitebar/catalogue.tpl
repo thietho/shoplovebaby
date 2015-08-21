@@ -13,7 +13,7 @@
 $(document).ready(function(){
 	<?php foreach($path as $item){ ?>
 	
-	$("#<?php echo $item['sitemapid']?>").show('slow',function(){
+	$("#<?php echo @$item['sitemapid']?>").show('slow',function(){
 		
 		if($(this).parent().children('div').children('span').hasClass('down'))
 		{

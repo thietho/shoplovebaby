@@ -12,7 +12,7 @@ if(count($medias))
             <option value="az">Tên: A-Z</option>
         </select>
 <script language="javascript">
-$('#order').val('<?php echo $_GET["order"]?>');
+$('#order').val('<?php echo @$_GET["order"]?>');
 </script>
 		<div id="ben-view-type" class="ben-right">
         	<img src="<?php echo HTTP_SERVER.DIR_IMAGE?>viewtype/view_gallery.gif" onclick="setViewType('gallery')"/>
@@ -30,7 +30,7 @@ $('#order').val('<?php echo $_GET["order"]?>');
     <?php } ?>
     
     <?php
-    	switch($_SESSION['productview'])
+    	switch(@$_SESSION['productview'])
         {
         	case "":
             case "gallery":

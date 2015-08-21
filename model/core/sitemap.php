@@ -106,15 +106,15 @@ class ModelCoreSitemap extends Model
 	{
 		if($id == "") return 'index';
 		$row=$this->getItem($id, $siteid);
-		if($row['sitemapparent'] == "")
+		if(@$row['sitemapparent'] == "")
 		{
-			return $row['sitemapid'];
+			return @$row['sitemapid'];
 		}
-		while($row['sitemapparent']!="")
+		while(@$row['sitemapparent']!="")
 		{
 			$row=$this->getItem($row['sitemapparent'], $siteid);
 		}
-		return $row['sitemapid'];
+		return @$row['sitemapid'];
 	}
 	
 	public function getPath($id, $siteid)
@@ -122,7 +122,7 @@ class ModelCoreSitemap extends Model
 		$arr=array();
 		$row=$this->getItem($id, $siteid);
 		array_push($arr,$row);
-		while($row['sitemapparent']!="")
+		while(@$row['sitemapparent']!="")
 		{
 			$row=$this->getItem($row['sitemapparent'], $siteid);
 			array_push($arr,$row);
@@ -138,7 +138,7 @@ class ModelCoreSitemap extends Model
 		{
 			//$link = "".$data[$i]['sitemapname']."";
 			
-				$link = "<a href='".$this->document->createLink($data[$i]['sitemapid'])."'>".$data[$i]['sitemapname']."</a>";
+				@$link = "<a href='".$this->document->createLink($data[$i]['sitemapid'])."'>".$data[$i]['sitemapname']."</a>";
 			
 			$strBreadcrumb .= " &#187; ".$link; 
 		}
@@ -281,7 +281,7 @@ class ModelCoreSitemap extends Model
 		
 		$arr['countchild'] = count($rows);
 		
-		if($arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
+		if(@$arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
 		
 		if($id!="")
 		{

@@ -62,7 +62,7 @@ class ControllerAddonCart extends Controller
 		$price = $media['price'];
 		if($media['pricepromotion'])
 			$price = $media['pricepromotion'];
-		$qty =(int)$_SESSION['cart'][$mediaid]['qty'];
+		@$qty =(int)$_SESSION['cart'][$mediaid]['qty'];
 		
 		$_SESSION['cart'][$mediaid] = array(
 											'mediaid' => $mediaid,
