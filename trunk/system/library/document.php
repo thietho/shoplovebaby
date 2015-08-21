@@ -142,7 +142,7 @@ final class Document {
 		$query = $this->db->query("Select `sitemap`.* 
 									from `sitemap` 
 									where sitemapid ='".$sitemapid."' AND siteid = '".$siteid."'");
-		return $query->row[$name];	
+		return @$query->row[$name];	
 	}
 	
 	public function getCategory($categoryid,$name="categoryname")
@@ -150,7 +150,7 @@ final class Document {
 		$query = $this->db->query("Select `category`.* 
 									from `category` 
 									where categoryid ='".$categoryid."' ");
-		return $query->row[$name];	
+		return @$query->row[$name];	
 	}
 	
 	public function getMedia($mediaid,$name="title")
@@ -158,7 +158,7 @@ final class Document {
 		$query = $this->db->query("Select `media`.* 
 									from `media` 
 									where mediaid ='".$mediaid."' ");
-		return $query->row[$name];	
+		return @$query->row[$name];	
 	}
 	public function getNhanVien($id,$name = 'hoten')
 	{
@@ -176,7 +176,7 @@ final class Document {
 									from `usertype` 
 									where usertypeid ='".$usertypeid."' ";
 		$query = $this->db->query($sql);
-		return $query->row[$name];
+		return @$query->row[$name];
 	}
 	
 	public function getUser($userid,$name = 'fullname')
@@ -185,7 +185,7 @@ final class Document {
 									from `user` 
 									where userid ='".$userid."' ";
 		$query = $this->db->query($sql);
-		return $query->row[$name];
+		return @$query->row[$name];
 	}
 	
 	public function getModule($id,$name = 'modulename')
@@ -193,21 +193,21 @@ final class Document {
 		$query = $this->db->query("Select `module`.* 
 									from `module` 
 									where id ='".$id."' ");
-		return $query->row[$name];	
+		return @$query->row[$name];	
 	}
 	public function getModuleId($moduleid,$name = 'modulename')
 	{
 		$query = $this->db->query("Select `module`.* 
 									from `module` 
 									where moduleid ='".$moduleid."' ");
-		return $query->row[$name];	
+		return @$query->row[$name];	
 	}
 	public function getTenDonVi($madonvi)
 	{
 		$query = $this->db->query("Select `qlkdonvitinh`.* 
 									from `qlkdonvitinh` 
 									where madonvi ='".$madonvi."' ");
-		return $query->row['tendonvitinh'];	
+		return @$query->row['tendonvitinh'];	
 	}
 	
 	public function getDonViTinh($madonvi,$name="tendonvitinh")
@@ -215,7 +215,7 @@ final class Document {
 		$query = $this->db->query("Select `qlkdonvitinh`.* 
 									from `qlkdonvitinh` 
 									where madonvi ='".$madonvi."' ");
-		return $query->row[$name];	
+		return @$query->row[$name];	
 	}
 	
 	public function getNguyenLieu($id,$name = 'tennguyenlieu')
@@ -224,7 +224,7 @@ final class Document {
 									from `qlknguyenlieu` 
 									where id ='".$id."' ";
 		$query = $this->db->query($sql);
-		return $query->row[$name];
+		return @$query->row[$name];
 	}
 	public function getNhaCungCap($id,$name = 'tennhacungcap')
 	{
@@ -232,7 +232,7 @@ final class Document {
 									from `qlknhacungcap` 
 									where id ='".$id."' ";
 		$query = $this->db->query($sql);
-		return $query->row[$name];
+		return @$query->row[$name];
 	}
 	public function getSanPham($id,$name = 'tensanpham')
 	{
@@ -240,7 +240,7 @@ final class Document {
 									from `qlksanpham` 
 									where id ='".$id."' ";
 		$query = $this->db->query($sql);
-		return $query->row[$name];
+		return @$query->row[$name];
 	}
 	
 	public function createLink($sitemap="",$id="",$key = "",$val = "")

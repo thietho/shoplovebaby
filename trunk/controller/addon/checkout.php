@@ -44,21 +44,21 @@ class ControllerAddonCheckout extends Controller
 			//Luu chi tiet don hang
 			foreach($_SESSION['cart'] as $item)
 			{
-				$detail['orderid'] = $orderid;
-				$detail['mediaid'] = $item['mediaid'];
-				$detail['quantity'] = $item['qty'];
-				$detail['unit'] = $this->document->getMedia($item['mediaid'],'unit');
-				$detail['price'] = $item['price'];
-				$detail['discount'] = 0;
-				$this->model_addon_order->saveOrderProduct($detail);
+				@$detail['orderid'] = $orderid;
+				@$detail['mediaid'] = $item['mediaid'];
+				@$detail['quantity'] = $item['qty'];
+				@$detail['unit'] = $this->document->getMedia($item['mediaid'],'unit');
+				@$detail['price'] = $item['price'];
+				@$detail['discount'] = 0;
+				@$this->model_addon_order->saveOrderProduct($detail);
 			}
 			unset($_SESSION['cart']);
 			//Gui don hang den nguoi nhan lien he
-			$arr = array($orderid);
+			@$arr = array($orderid);
 			$description = $this->loadModule('addon/checkoutcomplete','viewOrder',$arr);
 			$email = $this->model_core_media->getInformation("setting", 'EmailContact');
 			$mail['from'] = $data['email'];
-			$mail['FromName'] = $data['customername'];
+			@$mail['FromName'] = $data['customername'];
 			$mail['to'] = $email;
 			$mail['name'] = "";
 			$mail['subject'] =  "Thông tin đặt hàng";
@@ -71,7 +71,7 @@ class ControllerAddonCheckout extends Controller
 			$mail['FromName'] = "Bộ phận bán hàng - ".$this->document->setup['Title'];
 			$mail['to'] = $data['email'];
 			$mail['name'] = $data['customername'];
-			$mail['subject'] =  "Thông tin đặt hàng";
+			@$mail['subject'] =  "Thông tin đặt hàng";
 			$arr = array($description);
 			$mail['body'] = "<p>".$this->document->setup['Title']." đã nhận được đơn hàng của bạn. Chúng tôi sẻ liên hệ với bạn trong vòng 24h</p>"; 
 			$mail['body'] .= $this->loadModule('module/contact','createEmailTemplate',$arr);
