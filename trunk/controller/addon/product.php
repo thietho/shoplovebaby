@@ -24,8 +24,8 @@ class ControllerAddonProduct extends Controller
 		{
 			foreach($para as $val)
 			{
-				$ar = split("=",$val);
-				$datasearch[$ar[0]] = $ar[1];	
+				@$ar = split("=",$val);
+				@$datasearch[$ar[0]] = $ar[1];	
 			}
 			
 			//print_r($datasearch);
@@ -42,18 +42,18 @@ class ControllerAddonProduct extends Controller
 		if($datasearch["keyword"]!="")
 		{
 			
-			$where .= " AND ( title like '%".$datasearch["keyword"]."%' OR summary like '%".$datasearch["keyword"]."%' OR description like '%".$datasearch["keyword"]."%')";
+			@$where .= " AND ( title like '%".$datasearch["keyword"]."%' OR summary like '%".$datasearch["keyword"]."%' OR description like '%".$datasearch["keyword"]."%')";
 		}
 		if($datasearch["nhanhieu"]!="")
 		{
-			$where .= " AND brand = '".$datasearch["nhanhieu"]."'";
+			@$where .= " AND brand = '".$datasearch["nhanhieu"]."'";
 		}
-		if($datasearch['gia'] != "")
+		if(@$datasearch['gia'] != "")
 		{
 			$hasprice = true;
-			$arrgia = split("-",$datasearch['gia']);
-			$giatu = (int)$arrgia[0];
-			$giaden = (int)$arrgia[1];
+			@$arrgia = split("-",$datasearch['gia']);
+			@$giatu = (int)$arrgia[0];
+			@$giaden = (int)$arrgia[1];
 			if($giatu)
 				$whereprice = " AND price >= '".$giatu*$donvi ."'";
 			if($giaden)
@@ -83,10 +83,10 @@ class ControllerAddonProduct extends Controller
 	
 	public function getViewList()
 	{
-		$this->data['medias'] =array();
+		@$this->data['medias'] =array();
 		if(isset($_SESSION['proviews']))
 		{
-			$this->data['medias'] = $_SESSION['proviews'];
+			@$this->data['medias'] = $_SESSION['proviews'];
 		}
 		
 		$this->id="content";
@@ -101,15 +101,15 @@ class ControllerAddonProduct extends Controller
 		$data = $this->request->get;
 		if(!isset($_SESSION['proviews']))
 		{
-			$_SESSION['proviews'] = array();	
+			@$_SESSION['proviews'] = array();	
 		}
-		$mediaid = $data['mediaid'];
-		$media = $this->model_core_media->getItem($mediaid);
-		$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
-		$arr = $this->string->referSiteMapToArray($media['refersitemap']);
-		$sitemapid = $arr[0];
-		$media['link'] = $this->document->createLink($sitemapid,$media['alias']);
-		$_SESSION['proviews'][$mediaid] = $media;
+		@$mediaid = $data['mediaid'];
+		@$media = $this->model_core_media->getItem($mediaid);
+		@$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
+		@$arr = $this->string->referSiteMapToArray($media['refersitemap']);
+		@$sitemapid = $arr[0];
+		@$media['link'] = $this->document->createLink($sitemapid,$media['alias']);
+		@$_SESSION['proviews'][$mediaid] = $media;
 		
 		$this->data['output'] = "true";
 		$this->id='content';
