@@ -254,7 +254,7 @@ $("#ben-next").click(function(){
     </p>
     
     <p class="ben-text-right">
-        <b><?php echo $post['source']?></b>
+        <b><?php echo @$post['source']?></b>
     </p>
     <?php if(count($priceproduct)){ ?>
     <div id="listprice">
@@ -274,23 +274,23 @@ $("#ben-next").click(function(){
                 <?php foreach($priceproduct as $val){ ?>
                 <tr>
                     <td>
-                    	<?php echo $val['title']!=""?$val['title']:$post['title'] ?>
+                    	<?php echo $val['title']!=""?@$val['title']:@$post['title'] ?>
                     	<?php if($val['tenkhuyenmai']){ ?>
-                        <p class="ben-khuyenmai"><a  onclick="xemkhuyenmai('<?php echo $val['makhuyenmai']?>')"><?php echo $val['tenkhuyenmai']?></a></p>
+                        <p class="ben-khuyenmai"><a  onclick="xemkhuyenmai('<?php echo @$val['makhuyenmai']?>')"><?php echo @$val['tenkhuyenmai']?></a></p>
                         <?php } ?>
                     </td>
                     
                     <td class="number">
-                        <?php if($val['price']!=0){ ?>
-                        <?php echo $this->string->numberFormate($val['price'])?> <?php echo $this->document->setup['Currency']?>
+                        <?php if(@$val['price']!=0){ ?>
+                        <?php echo @$this->string->numberFormate($val['price'])?> <?php echo @$this->document->setup['Currency']?>
                         <?php } ?>
                     </td>
                     <td class="number">
-                        <?php if($val['pricepromotion']!=0){ ?>
-                        <?php echo $this->string->numberFormate($val['pricepromotion'])?><?php echo $this->document->setup['Currency']?>
+                        <?php if(@$val['pricepromotion']!=0){ ?>
+                        <?php echo @$this->string->numberFormate($val['pricepromotion'])?><?php echo @$this->document->setup['Currency']?>
                         <?php } ?>
                     </td>
-                    <td><input type="button" class="ben-button ben-center" onclick="cart.add('<?php echo $val['mediaid']?>')" value="Đặt hàng"></td>
+                    <td><input type="button" class="ben-button ben-center" onclick="cart.add('<?php echo @$val['mediaid']?>')" value="Đặt hàng"></td>
                 </tr>
                 <?php } ?>
                 
@@ -304,13 +304,13 @@ $("#ben-next").click(function(){
                 
         <ul>
             <?php foreach($child as $key => $item){ ?>
-                <li><a href="#fragment-<?php echo $key?>"><span><?php echo $item['title']?></span></a></li>	
+                <li><a href="#fragment-<?php echo $key?>"><span><?php echo @$item['title']?></span></a></li>	
             <?php } ?>
         </ul>
        
         <?php foreach($child as $key => $item){ ?>
         <div id="fragment-<?php echo $key?>">
-            <?php echo html_entity_decode($item['description'])?>
+            <?php echo html_entity_decode(@$item['description'])?>
         </div>
         <?php } ?>
                 
@@ -324,11 +324,11 @@ $("#ben-next").click(function(){
 </div>
 
 <?php echo $comment?>
-<div class="ben-section-breadcrumb">Gửi Nhận xét về <?php echo $post['title']?></div>
+<div class="ben-section-breadcrumb">Gửi Nhận xét về <?php echo @$post['title']?></div>
 <div id="comment-warning" class="ben-error ben-hidden"></div>
 <div class="ben-section-content">
 	<form id="frmComment">
-    <input type="hidden" name="mediaid" value="<?php echo $post['mediaid']?>" />
+    <input type="hidden" name="mediaid" value="<?php echo @$post['mediaid']?>" />
     <div class="ben-post ben-comment">
         <table>
             <tr>
