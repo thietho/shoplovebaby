@@ -18,7 +18,7 @@
                     </td>
                     <td>
                     	
-                        <a href="skype:hotrang1987?chat" onclick="return skypeCheck();"><img border="0" src="http://mystatus.skype.com/smallclassic/hotrang1987"> </a>
+                        <a href="skype:hotrang1987?chat" onclick="return skypeCheck();"><img border="0" src="<?php echo HTTP_SERVER.DIR_IMAGE?>skype.png"> </a>
                     </td>
                 </tr>
             </table>
